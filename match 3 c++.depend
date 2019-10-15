@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1571115932 source:c:\users\dell\downloads\match_3-game-with-sfml-and-c-\match 3 c++\main.cpp
+	<SFML/Graphics.hpp>
+	<SFML/System/Clock.hpp>
+	<bits/stdc++.h>
+
