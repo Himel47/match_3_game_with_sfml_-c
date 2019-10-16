@@ -8,6 +8,9 @@ using namespace sf;
 
 using namespace std;
 
+string stringscore="";
+string stringmove="";
+int pointx=0, moves1=20;
 int tile=45; //tile size
 Vector2i offset(36,18);
 
@@ -28,6 +31,55 @@ void swap(piece p1, piece p2)
 
     grid[p1.row][p1.col]=p1;
     grid[p2.row][p2.col]=p2;
+}
+
+
+void move_ending_page()
+{
+    Font fonTf1, fonTf2;
+    fonTf1.loadFromFile("fonts/COLONNA.ttf");
+    fonTf2.loadFromFile("fonts/ITCKRIST.ttf");
+
+    RenderWindow Fail1(VideoMode(560,401), "Fail-1");
+
+    Texture fail_bg;
+    fail_bg.loadFromFile("image/bg_night.jpg");
+
+    Sprite bg_fail1(fail_bg);
+
+    Text failT1("SORRY..!!", fonTf1, 65);
+    Text failT2("You FAILED", fonTf2, 35);
+
+    failT1.setFillColor(sf::Color::Yellow);
+    failT2.setFillColor(sf::Color::Red);
+
+    failT1.setPosition(160,150);
+    failT2.setPosition(180,300);
+
+    while(Fail1.isOpen())
+    {
+        Event fail1_event;
+        while(Fail1.pollEvent(fail1_event))
+        {
+            if(fail1_event.type== Event::KeyPressed)
+            {
+
+                if(Keyboard::isKeyPressed(Keyboard::Enter))
+                {
+                    Fail1.close();
+                }
+
+            }
+        }
+
+        Fail1.clear();
+        Fail1.draw(bg_fail1);
+
+        Fail1.draw(failT1);
+        Fail1.draw(failT2);
+
+        Fail1.display();
+    }
 }
 
 
@@ -211,10 +263,62 @@ void Level2_page()
 }
 
 
+int level1_pass_page()
+{
+    Font fonT1, fonT2;
+    fonT1.loadFromFile("fonts/COLONNA.ttf");
+    fonT2.loadFromFile("fonts/ITCKRIST.ttf");
+
+    RenderWindow pass1(VideoMode(560,401), "Pass-1");
+
+    Texture pass_bg,pass_bg2;
+    pass_bg.loadFromFile("image/bg_night.jpg");
+    pass_bg2.loadFromFile("image/Watercolor.png");
+
+    Sprite bg11_pass(pass_bg), bg12_pass(pass_bg2);
+
+    Text passT1("CONGRATULATIONS..!!", fonT1, 45);
+    Text passT2("You PASSED this Level", fonT2, 35);
+
+    passT1.setFillColor(sf::Color::Red);
+    passT2.setFillColor(sf::Color::Red);
+
+    passT1.setPosition(60,100);
+    passT2.setPosition(80,300);
+
+    while(pass1.isOpen())
+    {
+        Event pass_event;
+        while(pass1.pollEvent(pass_event))
+        {
+            if(pass_event.type== Event::KeyPressed)
+            {
+
+                if(Keyboard::isKeyPressed(Keyboard::Enter))
+                {
+                    pass1.close();
+                    Level2_page();
+                }
+
+            }
+        }
+
+        pass1.clear();
+        pass1.draw(bg11_pass);
+        pass1.draw(bg12_pass);
+
+        pass1.draw(passT1);
+        pass1.draw(passT2);
+
+        pass1.display();
+    }
+}
+
+
 void Game1()
 {
-    RenderWindow app(VideoMode(560,401), "Match-3 Game!");
-    app.setFramerateLimit(60);
+    RenderWindow app1(VideoMode(560,401), "Match-3 Level-1...!");
+    app1.setFramerateLimit(60);
 
     Texture t1,t2,t3,t4,t5;
     t1.loadFromFile("image/bg_night.jpg");
@@ -225,7 +329,7 @@ void Game1()
 
     Sprite background(t1), gems(t2),point_bg(t3), point_bg2(t4), point_bg3(t5);
     point_bg.setPosition(420,70);
-    point_bg2.setPosition(420,180);
+    point_bg2.setPosition(420,190);
     point_bg3.setPosition(390,220);
 
     //game page writings
@@ -234,10 +338,13 @@ void Game1()
     fontg.loadFromFile("fonts/ALGER.ttf");
     Text game1("Score :", fontg, 35);
     Text game2("Moves :", fontg, 35);
+    Text game3("# Target :: 10000 #", fontg, 16);
     game1.setPosition(420,20);
-    game2.setPosition(420,130);
+    game2.setPosition(420,140);
+    game3.setPosition(405,115);
     game1.setFillColor(sf::Color::Yellow);
     game2.setFillColor(sf::Color::Yellow);
+    game3.setFillColor(sf::Color::Yellow);
 
 
     //game code
@@ -260,14 +367,14 @@ void Game1()
 
     bool isSwap=false, isMoving=false;
 
-    while(app.isOpen())
+    while(app1.isOpen())
     {
         Event event;
-        while(app.pollEvent(event))
+        while(app1.pollEvent(event))
         {
             if(event.type == Event::Closed)
             {
-                app.close();
+                app1.close();
             }
 
             if(event.type == Event::MouseButtonPressed)
@@ -277,11 +384,30 @@ void Game1()
                     if(!isSwap && !isMoving)
                     {
                         click++;
-                        position = Mouse::getPosition(app)-offset;
+                        position = Mouse::getPosition(app1)-offset;
                     }
                 }
             }
         }
+
+        /*Score display part*/
+
+        stringscore=""+to_string(pointx);
+        Text ttt(stringscore, fontg, 25);
+        ttt.setFillColor(sf::Color::Red);
+        ttt.setPosition(425,70);
+
+        /*Score display part End*/
+
+        /*Move display part*/
+
+        stringmove=""+to_string(moves1);
+        Text ttmove(stringmove, fontg, 25);
+        ttmove.setFillColor(sf::Color::Red);
+        ttmove.setPosition(425,190);
+
+        /*Move display part End*/
+
 
 
 
@@ -300,6 +426,7 @@ void Game1()
                 swap(grid[y0][x0],grid[y][x]);
                 isSwap=true;
                 click=0;
+                moves1--;
             }
             else
             {
@@ -344,7 +471,7 @@ void Game1()
             {
                 piece &p = grid[i][j];
                 int dx,dy;
-                for(int n=0; n<3; n++)        // 3 times speed
+                for(int n=0; n<4; n++)        // 4 times speed
                 {
                     dx= p.x-p.col*tile;
                     dy= p.y-p.row*tile;
@@ -391,6 +518,20 @@ void Game1()
             for(int j=1; j<=8; j++)
             {
                 score+=grid[i][j].match;
+
+                if(grid[i][j].match)
+                {
+                    //point = ;
+                    pointx+=1;
+                    if(pointx>10000)
+                    {
+                        if(moves1>0)
+                        {
+                            app1.close();
+                            level1_pass_page();
+                        }
+                    }
+                }
             }
         }
 
@@ -441,7 +582,7 @@ void Game1()
         }
 
         //draw//
-        app.draw(background);
+        app1.draw(background);
 
         for(int i=1; i<=8; i++)
         {
@@ -452,18 +593,30 @@ void Game1()
                 gems.setColor(Color(255,255,255,p.deleteanimationstyle));
                 gems.setPosition(p.x,p.y);
                 gems.move(offset.x-tile,offset.y-tile);
-                app.draw(gems);
+                app1.draw(gems);
             }
         }
 
-        app.draw(game1);
-        app.draw(game2);
+        app1.draw(game1);
+        app1.draw(game2);
+        app1.draw(game3);
 
-        app.draw(point_bg);
-        app.draw(point_bg2);
-        app.draw(point_bg3);
+        app1.draw(point_bg);
+        app1.draw(point_bg2);
+        app1.draw(point_bg3);
+        app1.draw(ttt);
+        app1.draw(ttmove);
 
-        app.display();
+        app1.display();
+
+        if(moves1==0)
+        {
+            if(pointx<10000)
+            {
+                app1.close();
+                move_ending_page();
+            }
+        }
 
     }
 
