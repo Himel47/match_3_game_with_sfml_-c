@@ -8,6 +8,28 @@ using namespace sf;
 
 using namespace std;
 
+int tile=45; //tile size
+Vector2i offset(36,18);
+
+struct piece
+{
+    int x,y,col,row,kind,match,deleteanimationstyle;
+    piece()
+    {
+        match=0;
+        deleteanimationstyle=255;
+    }
+} grid[10][10];
+
+void swap(piece p1, piece p2)
+{
+    std::swap(p1.col,p2.col);
+    std::swap(p1.row,p2.row);
+
+    grid[p1.row][p1.col]=p1;
+    grid[p2.row][p2.col]=p2;
+}
+
 
 int Level4_page()
 {
@@ -189,6 +211,265 @@ void Level2_page()
 }
 
 
+void Game1()
+{
+    RenderWindow app(VideoMode(560,401), "Match-3 Game!");
+    app.setFramerateLimit(60);
+
+    Texture t1,t2,t3,t4,t5;
+    t1.loadFromFile("image/bg_night.jpg");
+    t2.loadFromFile("image/gems.png");
+    t3.loadFromFile("image/button2.png");
+    t4.loadFromFile("image/button2.png");
+    t5.loadFromFile("image/Design-PNG-Photo.png");
+
+    Sprite background(t1), gems(t2),point_bg(t3), point_bg2(t4), point_bg3(t5);
+    point_bg.setPosition(420,70);
+    point_bg2.setPosition(420,180);
+    point_bg3.setPosition(390,220);
+
+    //game page writings
+
+    Font fontg;
+    fontg.loadFromFile("fonts/ALGER.ttf");
+    Text game1("Score :", fontg, 35);
+    Text game2("Moves :", fontg, 35);
+    game1.setPosition(420,20);
+    game2.setPosition(420,130);
+    game1.setFillColor(sf::Color::Yellow);
+    game2.setFillColor(sf::Color::Yellow);
+
+
+    //game code
+
+    for(int i=1; i<=8; i++)
+    {
+        for(int j=1; j<=8; j++)
+        {
+            grid[i][j].kind=rand()%5;
+            grid[i][j].col=j;
+            grid[i][j].row=i;
+            grid[i][j].x=j*tile;
+            grid[i][j].y=i*tile;
+        }
+    }
+
+    int x0,y0,x,y;
+    int click=0;
+    Vector2i position;
+
+    bool isSwap=false, isMoving=false;
+
+    while(app.isOpen())
+    {
+        Event event;
+        while(app.pollEvent(event))
+        {
+            if(event.type == Event::Closed)
+            {
+                app.close();
+            }
+
+            if(event.type == Event::MouseButtonPressed)
+            {
+                if(event.key.code == Mouse::Left)
+                {
+                    if(!isSwap && !isMoving)
+                    {
+                        click++;
+                        position = Mouse::getPosition(app)-offset;
+                    }
+                }
+            }
+        }
+
+
+
+        //mouse click
+        if(click==1)
+        {
+            x0=position.x/tile+1;
+            y0=position.y/tile+1;
+        }
+        if(click==2)
+        {
+            x=position.x/tile+1;
+            y=position.y/tile+1;
+            if(abs(x-x0)+abs(y-y0)==1)
+            {
+                swap(grid[y0][x0],grid[y][x]);
+                isSwap=true;
+                click=0;
+            }
+            else
+            {
+                click=1;
+            }
+        }
+
+        //Match finding
+        for(int i=1; i<=8; i++)
+        {
+            for(int j=0; j<=8; j++)
+            {
+                if(grid[i][j].kind==grid[i+1][j].kind)
+                {
+                    if(grid[i][j].kind==grid[i-1][j].kind)
+                    {
+                        for(int n=-1; n<=1; n++)
+                        {
+                            grid[i+n][j].match++;
+                        }
+                    }
+                }
+
+                if(grid[i][j].kind==grid[i][j+1].kind)
+                {
+                    if(grid[i][j].kind==grid[i][j-1].kind)
+                    {
+                        for(int n=-1; n<=1; n++)
+                        {
+                            grid[i][j+n].match++;
+                        }
+                    }
+                }
+            }
+        }
+
+        //moving animation
+        isMoving=false;
+        for(int i=1; i<=8; i++)
+        {
+            for(int j=1; j<=8; j++)
+            {
+                piece &p = grid[i][j];
+                int dx,dy;
+                for(int n=0; n<3; n++)        // 3 times speed
+                {
+                    dx= p.x-p.col*tile;
+                    dy= p.y-p.row*tile;
+                    if(dx)
+                    {
+                        p.x=p.x-dx/abs(dx);
+                    }
+                    if(dy)
+                    {
+                        p.y=p.y-dy/abs(dy);
+                    }
+                }
+                if(dx||dy)
+                {
+                    isMoving=true;
+                }
+            }
+        }
+
+        //deleting animation
+        if(!isMoving)
+        {
+            for(int i=1; i<=8; i++)
+            {
+                for(int j=1; j<=8; j++)
+                {
+                    if(grid[i][j].match)
+                    {
+                        if(grid[i][j].deleteanimationstyle>10)
+                        {
+                            grid[i][j].deleteanimationstyle=grid[i][j].deleteanimationstyle-10;
+                            isMoving=true;
+                        }
+                    }
+                }
+            }
+        }
+
+
+        //get Score
+        int score=0;
+        for(int i=1; i<=8; i++)
+        {
+            for(int j=1; j<=8; j++)
+            {
+                score+=grid[i][j].match;
+            }
+        }
+
+        //swap back is no match
+        if(isSwap && !isMoving)
+        {
+            if(!score)
+            {
+                swap(grid[y0][x0],grid[y][x]);
+                isSwap=false;
+            }
+        }
+
+        //grid updating after matching
+        if(!isMoving)
+        {
+            for(int i=8; i>=1; i--)
+            {
+                for(int j=1; j<=8; j++)
+                {
+                    if(grid[i][j].match)
+                    {
+                        for(int n=i; n>=1; n--)
+                        {
+                            if(!grid[n][j].match)
+                            {
+                                swap(grid[n][j],grid[i][j]);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            for(int j=1; j<=8; j++)
+            {
+                for(int i=8,n=0; i>=1; i--)
+                {
+                    if(grid[i][j].match)
+                    {
+                        grid[i][j].kind=rand()%5;
+                        grid[i][j].y= -tile*n++;
+                        grid[i][j].match=0;
+                        grid[i][j].deleteanimationstyle=255;
+                    }
+                }
+            }
+        }
+
+        //draw//
+        app.draw(background);
+
+        for(int i=1; i<=8; i++)
+        {
+            for(int j=1; j<=8; j++)
+            {
+                piece p = grid[i][j];
+                gems.setTextureRect(IntRect(p.kind*43,0,45,45));
+                gems.setColor(Color(255,255,255,p.deleteanimationstyle));
+                gems.setPosition(p.x,p.y);
+                gems.move(offset.x-tile,offset.y-tile);
+                app.draw(gems);
+            }
+        }
+
+        app.draw(game1);
+        app.draw(game2);
+
+        app.draw(point_bg);
+        app.draw(point_bg2);
+        app.draw(point_bg3);
+
+        app.display();
+
+    }
+
+}
+
+
 int Level1_page()
 {
     int clock1=0;
@@ -229,7 +510,7 @@ int Level1_page()
                 if(Keyboard::isKeyPressed(Keyboard::Enter))
                 {
                     page1.close();
-                    //Game1();
+                    Game1();
                 }
 
             }
