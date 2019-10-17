@@ -202,6 +202,59 @@ int Level3_page()
     }
 }
 
+
+int level2_pass_page()
+{
+    Font fonT21, fonT22;
+    fonT21.loadFromFile("fonts/COLONNA.ttf");
+    fonT22.loadFromFile("fonts/ITCKRIST.ttf");
+
+    RenderWindow pass2(VideoMode(560,401), "Pass-2");
+
+    Texture pass_bg,pass_bg2;
+    pass_bg.loadFromFile("image/bg_night.jpg");
+    pass_bg2.loadFromFile("image/Watercolor.png");
+
+    Sprite bg21_pass(pass_bg), bg22_pass(pass_bg2);
+
+    Text passT21("CONGRATULATIONS..!!", fonT21, 45);
+    Text passT22("You PASSED this Level", fonT22, 35);
+
+    passT21.setFillColor(sf::Color::Red);
+    passT22.setFillColor(sf::Color::Red);
+
+    passT21.setPosition(60,100);
+    passT22.setPosition(80,300);
+
+    while(pass2.isOpen())
+    {
+        Event pass_event;
+        while(pass2.pollEvent(pass_event))
+        {
+            if(pass_event.type== Event::KeyPressed)
+            {
+
+                if(Keyboard::isKeyPressed(Keyboard::Enter))
+                {
+                    pass2.close();
+                    Level3_page();
+                }
+
+            }
+        }
+
+        pass2.clear();
+        pass2.draw(bg21_pass);
+        pass2.draw(bg22_pass);
+
+        pass2.draw(passT21);
+        pass2.draw(passT22);
+
+        pass2.display();
+    }
+}
+
+
 void Game2()
 {
     RenderWindow app2(VideoMode(560,401), "Match-3 Level-2...!");
@@ -415,7 +468,7 @@ void Game2()
                         if(moves2>0)
                         {
                             app2.close();
-                            //level2_pass_page();
+                            level2_pass_page();
                         }
                     }
                 }
