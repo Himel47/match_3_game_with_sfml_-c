@@ -8,9 +8,9 @@ using namespace sf;
 
 using namespace std;
 
-string stringscore="";
-string stringmove="";
-int pointx=0, moves1=20;
+string stringscore="", stringscore2="";
+string stringmove="", stringmove2="";
+int pointx=0, pointy=0, moves1=20, moves2=15;
 int tile=45; //tile size
 Vector2i offset(36,18);
 
@@ -203,6 +203,366 @@ int Level3_page()
 }
 
 
+int level2_pass_page()
+{
+    Font fonT21, fonT22;
+    fonT21.loadFromFile("fonts/COLONNA.ttf");
+    fonT22.loadFromFile("fonts/ITCKRIST.ttf");
+
+    RenderWindow pass2(VideoMode(560,401), "Pass-2");
+
+    Texture pass_bg,pass_bg2;
+    pass_bg.loadFromFile("image/bg_night.jpg");
+    pass_bg2.loadFromFile("image/Watercolor.png");
+
+    Sprite bg21_pass(pass_bg), bg22_pass(pass_bg2);
+
+    Text passT21("CONGRATULATIONS..!!", fonT21, 45);
+    Text passT22("You PASSED this Level", fonT22, 35);
+
+    passT21.setFillColor(sf::Color::Red);
+    passT22.setFillColor(sf::Color::Red);
+
+    passT21.setPosition(60,100);
+    passT22.setPosition(80,300);
+
+    while(pass2.isOpen())
+    {
+        Event pass_event;
+        while(pass2.pollEvent(pass_event))
+        {
+            if(pass_event.type== Event::KeyPressed)
+            {
+
+                if(Keyboard::isKeyPressed(Keyboard::Enter))
+                {
+                    pass2.close();
+                    Level3_page();
+                }
+
+            }
+        }
+
+        pass2.clear();
+        pass2.draw(bg21_pass);
+        pass2.draw(bg22_pass);
+
+        pass2.draw(passT21);
+        pass2.draw(passT22);
+
+        pass2.display();
+    }
+}
+
+
+void Game2()
+{
+    RenderWindow app2(VideoMode(560,401), "Match-3 Level-2...!");
+    app2.setFramerateLimit(60);
+
+    Texture t1,t2,t3,t4,t5;
+    t1.loadFromFile("image/bg_night.jpg");
+    t2.loadFromFile("image/gems.png");
+    t3.loadFromFile("image/button2.png");
+    t4.loadFromFile("image/button2.png");
+    t5.loadFromFile("image/Design-PNG-Photo.png");
+
+    Sprite background(t1), gems(t2),point_bg(t3), point_bg2(t4), point_bg3(t5);
+    point_bg.setPosition(420,70);
+    point_bg2.setPosition(420,190);
+    point_bg3.setPosition(390,220);
+
+    //game page writings
+
+    Font fontg;
+    fontg.loadFromFile("fonts/ALGER.ttf");
+    Text game1("Score :", fontg, 35);
+    Text game2("Moves :", fontg, 35);
+    Text game3("# Target :: 8000 #", fontg, 16);
+    game1.setPosition(420,20);
+    game2.setPosition(420,140);
+    game3.setPosition(405,115);
+    game1.setFillColor(sf::Color::Yellow);
+    game2.setFillColor(sf::Color::Yellow);
+    game3.setFillColor(sf::Color::Yellow);
+
+
+    //game code
+
+    for(int i=1; i<=8; i++)
+    {
+        for(int j=1; j<=8; j++)
+        {
+            grid[i][j].kind=rand()%5;
+            grid[i][j].col=j;
+            grid[i][j].row=i;
+            grid[i][j].x=j*tile;
+            grid[i][j].y=i*tile;
+        }
+    }
+
+    int x0,y0,x,y;
+    int click=0;
+    Vector2i position;
+
+    bool isSwap=false, isMoving=false;
+
+    while(app2.isOpen())
+    {
+        Event event;
+        while(app2.pollEvent(event))
+        {
+            if(event.type == Event::Closed)
+            {
+                app2.close();
+            }
+
+            if(event.type == Event::MouseButtonPressed)
+            {
+                if(event.key.code == Mouse::Left)
+                {
+                    if(!isSwap && !isMoving)
+                    {
+                        click++;
+                        position = Mouse::getPosition(app2)-offset;
+                    }
+                }
+            }
+        }
+
+        /*Score display part*/
+
+        stringscore=""+to_string(pointy);
+        Text tscore2(stringscore, fontg, 25);
+        tscore2.setFillColor(sf::Color::Red);
+        tscore2.setPosition(425,70);
+
+        /*Score display part End*/
+
+        /*Move display part*/
+
+        stringmove=""+to_string(moves2);
+        Text tmove2(stringmove, fontg, 25);
+        tmove2.setFillColor(sf::Color::Red);
+        tmove2.setPosition(425,190);
+
+        /*Move display part End*/
+
+
+
+
+        //mouse click
+        if(click==1)
+        {
+            x0=position.x/tile+1;
+            y0=position.y/tile+1;
+        }
+        if(click==2)
+        {
+            x=position.x/tile+1;
+            y=position.y/tile+1;
+            if(abs(x-x0)+abs(y-y0)==1)
+            {
+                swap(grid[y0][x0],grid[y][x]);
+                isSwap=true;
+                click=0;
+                moves2--;
+            }
+            else
+            {
+                click=1;
+            }
+        }
+
+        //Match finding
+        for(int i=1; i<=8; i++)
+        {
+            for(int j=0; j<=8; j++)
+            {
+                if(grid[i][j].kind==grid[i+1][j].kind)
+                {
+                    if(grid[i][j].kind==grid[i-1][j].kind)
+                    {
+                        for(int n=-1; n<=1; n++)
+                        {
+                            grid[i+n][j].match++;
+                        }
+                    }
+                }
+
+                if(grid[i][j].kind==grid[i][j+1].kind)
+                {
+                    if(grid[i][j].kind==grid[i][j-1].kind)
+                    {
+                        for(int n=-1; n<=1; n++)
+                        {
+                            grid[i][j+n].match++;
+                        }
+                    }
+                }
+            }
+        }
+
+        //moving animation
+        isMoving=false;
+        for(int i=1; i<=8; i++)
+        {
+            for(int j=1; j<=8; j++)
+            {
+                piece &p = grid[i][j];
+                int dx,dy;
+                for(int n=0; n<4; n++)        // 4 times speed
+                {
+                    dx= p.x-p.col*tile;
+                    dy= p.y-p.row*tile;
+                    if(dx)
+                    {
+                        p.x=p.x-dx/abs(dx);
+                    }
+                    if(dy)
+                    {
+                        p.y=p.y-dy/abs(dy);
+                    }
+                }
+                if(dx||dy)
+                {
+                    isMoving=true;
+                }
+            }
+        }
+
+        //deleting animation
+        if(!isMoving)
+        {
+            for(int i=1; i<=8; i++)
+            {
+                for(int j=1; j<=8; j++)
+                {
+                    if(grid[i][j].match)
+                    {
+                        if(grid[i][j].deleteanimationstyle>10)
+                        {
+                            grid[i][j].deleteanimationstyle=grid[i][j].deleteanimationstyle-10;
+                            isMoving=true;
+                        }
+                    }
+                }
+            }
+        }
+
+
+        //get Score
+        int score=0;
+        for(int i=1; i<=8; i++)
+        {
+            for(int j=1; j<=8; j++)
+            {
+                score+=grid[i][j].match;
+
+                if(grid[i][j].match)
+                {
+                    //point = ;
+                    pointy+=1;
+                    if(pointy>8000)
+                    {
+                        if(moves2>0)
+                        {
+                            app2.close();
+                            level2_pass_page();
+                        }
+                    }
+                }
+            }
+        }
+
+        //swap back is no match
+        if(isSwap && !isMoving)
+        {
+            if(!score)
+            {
+                swap(grid[y0][x0],grid[y][x]);
+                isSwap=false;
+            }
+        }
+
+        //grid updating after matching
+        if(!isMoving)
+        {
+            for(int i=8; i>=1; i--)
+            {
+                for(int j=1; j<=8; j++)
+                {
+                    if(grid[i][j].match)
+                    {
+                        for(int n=i; n>=1; n--)
+                        {
+                            if(!grid[n][j].match)
+                            {
+                                swap(grid[n][j],grid[i][j]);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            for(int j=1; j<=8; j++)
+            {
+                for(int i=8,n=0; i>=1; i--)
+                {
+                    if(grid[i][j].match)
+                    {
+                        grid[i][j].kind=rand()%5;
+                        grid[i][j].y= -tile*n++;
+                        grid[i][j].match=0;
+                        grid[i][j].deleteanimationstyle=255;
+                    }
+                }
+            }
+        }
+
+        //draw//
+        app2.draw(background);
+
+        for(int i=1; i<=8; i++)
+        {
+            for(int j=1; j<=8; j++)
+            {
+                piece p = grid[i][j];
+                gems.setTextureRect(IntRect(p.kind*43,0,45,45));
+                gems.setColor(Color(255,255,255,p.deleteanimationstyle));
+                gems.setPosition(p.x,p.y);
+                gems.move(offset.x-tile,offset.y-tile);
+                app2.draw(gems);
+            }
+        }
+
+        app2.draw(game1);
+        app2.draw(game2);
+        app2.draw(game3);
+
+        app2.draw(point_bg);
+        app2.draw(point_bg2);
+        app2.draw(point_bg3);
+        app2.draw(tscore2);
+        app2.draw(tmove2);
+
+        app2.display();
+
+        if(moves2==0)
+        {
+            if(pointy<8000)
+            {
+                app2.close();
+                move_ending_page();
+            }
+        }
+
+    }
+
+}
+
+
 void Level2_page()
 {
     int clock2=0;
@@ -243,7 +603,7 @@ void Level2_page()
                 if(Keyboard::isKeyPressed(Keyboard::Enter))
                 {
                     page2.close();
-                    //Game2();
+                    Game2();
                 }
 
             }
