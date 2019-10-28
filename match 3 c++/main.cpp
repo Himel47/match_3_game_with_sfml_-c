@@ -10,7 +10,7 @@ using namespace std;
 
 string stringscore="", stringscore2="";
 string stringmove="", stringmove2="";
-int pointx=0, pointy=0, moves1=20, moves2=15;
+int pointx=0, pointy=0, moves1=20, moves2=20;
 int tile=45; //tile size
 Vector2i offset(36,18);
 
@@ -698,7 +698,7 @@ void Game1()
     fontg.loadFromFile("fonts/ALGER.ttf");
     Text game1("Score :", fontg, 35);
     Text game2("Moves :", fontg, 35);
-    Text game3("# Target :: 10000 #", fontg, 16);
+    Text game3("# Target :: 6000 #", fontg, 16);
     game1.setPosition(420,20);
     game2.setPosition(420,140);
     game3.setPosition(405,115);
@@ -883,7 +883,7 @@ void Game1()
                 {
                     //point = ;
                     pointx+=1;
-                    if(pointx>10000)
+                    if(pointx>6000)
                     {
                         if(moves1>0)
                         {
@@ -971,7 +971,7 @@ void Game1()
 
         if(moves1==0)
         {
-            if(pointx<10000)
+            if(pointx<6000)
             {
                 app1.close();
                 move_ending_page();
