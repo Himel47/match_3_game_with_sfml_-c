@@ -1265,13 +1265,13 @@ int main()
     //image loading
 
     w_background.loadFromFile("image/neon_shape.jpg");
-    w_logo.loadFromFile("image/RightArrow.png");
+    w_logo.loadFromFile("image/galaxy-png.png");
     w_style.loadFromFile("image/DownArrow.png");
 
 
     Sprite logo_s(w_logo), b_s(w_background), a_s(w_style);
-    xposition=130;
-    yposition=190;
+    xposition=195;
+    yposition=187;
     logo_s.setPosition(xposition,yposition);
 
 
@@ -1286,15 +1286,15 @@ int main()
             {
                 if(Keyboard::isKeyPressed(Keyboard::Enter))
                 {
-                    if(yposition==270)
+                    if(yposition==267)
                     {
                         MainPage.close();
                     }
-                    else if(yposition==230)
+                    else if(yposition==227)
                     {
                         High_score();
                     }
-                    else if(yposition==190)
+                    else if(yposition==187)
                     {
                         level_page();
                     }
@@ -1305,7 +1305,7 @@ int main()
                 else if(Keyboard::isKeyPressed(Keyboard::Up))
                 {
                     yposition-=40;
-                    if(yposition<190)
+                    if(yposition<187)
                     {
                         yposition+=(3*40);
                     }
@@ -1316,7 +1316,7 @@ int main()
                 else if(Keyboard::isKeyPressed(Keyboard::Down))
                 {
                     yposition+=40;
-                    if(yposition>270)
+                    if(yposition>267)
                     {
                         yposition-=(3*40);
                     }
