@@ -1099,6 +1099,7 @@ void  High_score()
 
 int main()
 {
+    event1:
     int xposition,yposition;
 
     Font font1, font2, font3;
@@ -1225,7 +1226,7 @@ int main()
 
                 if(Keyboard::isKeyPressed(Keyboard::Escape))
                 {
-                    MainPage.close();
+                    goto event1;
                 }
 
 
