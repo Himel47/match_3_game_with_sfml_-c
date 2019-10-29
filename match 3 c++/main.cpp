@@ -1099,7 +1099,7 @@ void  High_score()
 
 int main()
 {
-    event1:
+event1:
     int xposition,yposition;
 
     Font font1, font2, font3;
@@ -1175,121 +1175,125 @@ int main()
                     else if(yposition==187)
                     {
                         Font fontx,fonty;
-    fontx.loadFromFile("fonts/AGENCYB.ttf");
-    fonty.loadFromFile("fonts/COLONNA.ttf");
+                        fontx.loadFromFile("fonts/AGENCYB.ttf");
+                        fonty.loadFromFile("fonts/COLONNA.ttf");
 
-    Text Ta("Level 1", fontx, 40);
-    Text Tb("Level 2", fontx, 40);
-    Text Tc("Level 3", fontx, 40);
-    Text Td("Level 4", fontx, 40);
-    Text Te("SELECT LEVEL :", fonty, 50);
+                        Text Ta("Level 1", fontx, 40);
+                        Text Tb("Level 2", fontx, 40);
+                        Text Tc("Level 3", fontx, 40);
+                        Text Td("Level 4", fontx, 40);
+                        Text Te("SELECT LEVEL :", fonty, 50);
 
-    Ta.setFillColor(sf::Color::Green);
-    Tb.setFillColor(sf::Color::Green);
-    Tc.setFillColor(sf::Color::Green);
-    Td.setFillColor(sf::Color::Green);
-    Te.setFillColor(sf::Color::Magenta);
+                        Ta.setFillColor(sf::Color::Green);
+                        Tb.setFillColor(sf::Color::Green);
+                        Tc.setFillColor(sf::Color::Green);
+                        Td.setFillColor(sf::Color::Green);
+                        Te.setFillColor(sf::Color::Magenta);
 
-    Ta.setPosition(362, 111);
-    Tb.setPosition(362, 181);
-    Tc.setPosition(362, 251);
-    Td.setPosition(362, 321);
-    Te.setPosition(160,10);
+                        Ta.setPosition(362, 111);
+                        Tb.setPosition(362, 181);
+                        Tc.setPosition(362, 251);
+                        Td.setPosition(362, 321);
+                        Te.setPosition(160,10);
 
-    Texture page_bg, page_level1, page_level2, page_level3, page_level4, page_arrow, page_style;
-    page_arrow.loadFromFile("image/RightArrow.png");
-    page_bg.loadFromFile("image/score_background.jpg");
-    page_level1.loadFromFile("image/button1.png");
-    page_level2.loadFromFile("image/button1.png");
-    page_level3.loadFromFile("image/button1.png");
-    page_level4.loadFromFile("image/button1.png");
-    page_style.loadFromFile("image/Design.png");
+                        Texture page_bg, page_level1, page_level2, page_level3, page_level4, page_arrow, page_style;
+                        page_arrow.loadFromFile("image/night2.png");
+                        page_bg.loadFromFile("image/score_background.jpg");
+                        page_level1.loadFromFile("image/button1.png");
+                        page_level2.loadFromFile("image/button1.png");
+                        page_level3.loadFromFile("image/button1.png");
+                        page_level4.loadFromFile("image/button1.png");
+                        page_style.loadFromFile("image/Design.png");
 
-    Sprite level_bg(page_bg), level1(page_level1), level2(page_level2), level3(page_level3), level4(page_level4), level_arrow(page_arrow), level_style1(page_style);
+                        Sprite level_bg(page_bg), level1(page_level1), level2(page_level2), level3(page_level3), level4(page_level4), level_arrow(page_arrow), level_style1(page_style);
 
-    level1.setPosition(340,111);
-    level2.setPosition(340,181);
-    level3.setPosition(340,251);
-    level4.setPosition(340,321);
-    level_style1.setPosition(0,0);
+                        level1.setPosition(340,111);
+                        level2.setPosition(340,181);
+                        level3.setPosition(340,251);
+                        level4.setPosition(340,321);
+                        level_style1.setPosition(0,0);
 
-    int arrowposition=126;
-    level_arrow.setPosition(280,arrowposition);
+                        int arrowposition=111;
+                        level_arrow.setPosition(340,arrowposition);
 
-    while(MainPage.isOpen())
-    {
-        Event level_event;
-        while(MainPage.pollEvent(level_event))
-        {
-            if(level_event.type== Event::KeyPressed)
-            {
+                        while(MainPage.isOpen())
+                        {
+                            Event level_event;
+                            while(MainPage.pollEvent(level_event))
+                            {
+                                if(level_event.type==Event::Closed)
+                                {
+                                    goto event1;
+                                }
+                                if(level_event.type== Event::KeyPressed)
+                                {
 
-                if(Keyboard::isKeyPressed(Keyboard::Escape))
-                {
-                    goto event1;
-                }
-
-
-                else if(Keyboard::isKeyPressed(Keyboard::Up))
-                {
-                    arrowposition-=70;
-                    if(arrowposition<126)
-                    {
-                        arrowposition=336;
-                    }
-                    level_arrow.setPosition(280,arrowposition);
-                }
+                                    if(Keyboard::isKeyPressed(Keyboard::Escape))
+                                    {
+                                        goto event1;
+                                    }
 
 
-                else if(Keyboard::isKeyPressed(Keyboard::Down))
-                {
-                    arrowposition+=70;
-                    if(arrowposition>336)
-                    {
-                        arrowposition=126;
-                    }
-                    level_arrow.setPosition(280,arrowposition);
-                }
+                                    else if(Keyboard::isKeyPressed(Keyboard::Up))
+                                    {
+                                        arrowposition-=70;
+                                        if(arrowposition<111)
+                                        {
+                                            arrowposition=321;
+                                        }
+                                        level_arrow.setPosition(340,arrowposition);
+                                    }
 
 
-                else if(Keyboard::isKeyPressed(Keyboard::Enter))
-                {
-                    if(arrowposition==126)
-                    {
-                        Level1_page();
-                    }
-                    else if(arrowposition==196)
-                    {
-                        Level2_page();
-                    }
-                    else if(arrowposition==266)
-                    {
-                        Level3_page();
-                    }
-                    else if(arrowposition==336)
-                    {
-                        Level4_page();
-                    }
-                }
+                                    else if(Keyboard::isKeyPressed(Keyboard::Down))
+                                    {
+                                        arrowposition+=70;
+                                        if(arrowposition>321)
+                                        {
+                                            arrowposition=111;
+                                        }
+                                        level_arrow.setPosition(340,arrowposition);
+                                    }
 
-            }
-        }
 
-        MainPage.clear();
-        MainPage.draw(level_bg);
-        MainPage.draw(level_style1);
-        MainPage.draw(level1);
-        MainPage.draw(level2);
-        MainPage.draw(level3);
-        MainPage.draw(level4);
-        MainPage.draw(Ta);
-        MainPage.draw(Tb);
-        MainPage.draw(Tc);
-        MainPage.draw(Td);
-        MainPage.draw(Te);
-        MainPage.draw(level_arrow);
-        MainPage.display();
-    }
+                                    else if(Keyboard::isKeyPressed(Keyboard::Enter))
+                                    {
+                                        if(arrowposition==111)
+                                        {
+                                            Level1_page();
+                                        }
+                                        else if(arrowposition==181)
+                                        {
+                                            Level2_page();
+                                        }
+                                        else if(arrowposition==251)
+                                        {
+                                            Level3_page();
+                                        }
+                                        else if(arrowposition==321)
+                                        {
+                                            Level4_page();
+                                        }
+                                    }
+
+                                }
+                            }
+
+                            MainPage.clear();
+                            MainPage.draw(level_bg);
+                            MainPage.draw(level_style1);
+                            MainPage.draw(level1);
+                            MainPage.draw(level2);
+                            MainPage.draw(level3);
+                            MainPage.draw(level4);
+                            MainPage.draw(level_arrow);
+                            MainPage.draw(Ta);
+                            MainPage.draw(Tb);
+                            MainPage.draw(Tc);
+                            MainPage.draw(Td);
+                            MainPage.draw(Te);
+                            MainPage.display();
+                        }
                     }
                 }
 
