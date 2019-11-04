@@ -10,6 +10,14 @@ using namespace std;
 
 string stringscore="", stringscore2="";
 string stringmove="", stringmove2="";
+
+//time display
+string stringminute1="";
+string stringsecond1="";
+
+int secondcounting=0;
+int minutecounting=0;
+
 int pointx=0, pointy=0, moves1=20, moves2=20;
 int tile=45; //tile size
 Vector2i offset(36,18);
@@ -143,6 +151,339 @@ int Level4_page()
 }
 
 
+void Game3()
+{
+    sf::Clock clock;
+
+    sf::Time time;
+
+    RenderWindow app3(VideoMode(560,401), "Match-3 Game!");
+    app3.setFramerateLimit(60);
+
+    pointx=0;
+
+    Texture t1,t2,t3,t4,t5;
+    t1.loadFromFile("image/bg_night.jpg");
+    t2.loadFromFile("image/gems.png");
+    t3.loadFromFile("image/button2.png");
+    t4.loadFromFile("image/button2.png");
+    t5.loadFromFile("image/Design-PNG-Photo.png");
+
+    Sprite background(t1), gems(t2),point_bg(t3), point_bg2(t4), point_bg3(t5);
+    point_bg.setPosition(420,70);
+    point_bg2.setPosition(420,180);
+    point_bg3.setPosition(390,220);
+
+    //game page writings
+
+    Font fontg;
+    fontg.loadFromFile("fonts/ALGER.ttf");
+    Text game1("Score :", fontg, 35);
+    Text game2("Time :", fontg, 35);
+    Text game3("# Target :: >=8000 #", fontg, 13);
+    game1.setPosition(420,20);
+    game2.setPosition(420,130);
+    game3.setPosition(420,115);
+    game1.setFillColor(sf::Color::Yellow);
+    game2.setFillColor(sf::Color::Yellow);
+    game3.setFillColor(sf::Color::Yellow);
+
+
+    //game code
+
+    for(int i=1; i<=8; i++)
+    {
+        for(int j=1; j<=8; j++)
+        {
+            grid[i][j].kind=rand()%5;
+            grid[i][j].col=j;
+            grid[i][j].row=i;
+            grid[i][j].x=j*tile;
+            grid[i][j].y=i*tile;
+        }
+    }
+
+    int x0,y0,x,y;
+    int click=0;
+    Vector2i position;
+
+    bool isSwap=false, isMoving=false;
+
+    while(app3.isOpen())
+    {
+        Event event;
+        while(app3.pollEvent(event))
+        {
+            if(event.type == Event::Closed)
+            {
+                app3.close();
+            }
+
+            if(event.type == Event::MouseButtonPressed)
+            {
+                if(event.key.code == Mouse::Left)
+                {
+                    if(!isSwap && !isMoving)
+                    {
+                        click++;
+                        position = Mouse::getPosition(app3)-offset;
+                    }
+                }
+            }
+        }
+
+        //Score part
+
+        stringscore=""+to_string(pointx);
+        Text ttt2(stringscore, fontg, 25);
+        ttt2.setFillColor(sf::Color::Red);
+        ttt2.setPosition(425,70);
+
+        /*Score part End*/
+
+        /*time display part*/
+
+        //stringsecond1=""+to_string(moves1);
+        //Text ttmove(stringmove, fontg, 25);
+        //ttmove.setFillColor(sf::Color::Red);
+        //ttmove.setPosition(425,180);
+
+        stringminute1=""+to_string(minutecounting);
+        Text tminute1(stringminute1, fontg, 25);
+        tminute1.setFillColor(sf::Color::Red);
+        tminute1.setPosition(435,180);
+
+        stringsecond1=" : "+to_string(secondcounting);
+        Text tsecond1(stringsecond1, fontg, 25);
+        tsecond1.setFillColor(sf::Color::Red);
+        tsecond1.setPosition(450,180);
+
+        time = clock.getElapsedTime();
+        secondcounting= time.asSeconds();
+        //std::cout<<std::fixed;
+        //std::cout<< std::setprecision(0);
+        //std::cout<< time.asSeconds()<< std::endl;
+
+        /*Time display part End*/
+
+
+
+        //mouse click
+        if(click==1)
+        {
+            x0=position.x/tile+1;
+            y0=position.y/tile+1;
+        }
+        if(click==2)
+        {
+            x=position.x/tile+1;
+            y=position.y/tile+1;
+            if(abs(x-x0)+abs(y-y0)==1)
+            {
+                swap(grid[y0][x0],grid[y][x]);
+                isSwap=true;
+                click=0;
+                moves1--;
+            }
+            else
+            {
+                click=1;
+            }
+        }
+
+        //Match finding
+        for(int i=1; i<=8; i++)
+        {
+            for(int j=0; j<=8; j++)
+            {
+                if(grid[i][j].kind==grid[i+1][j].kind)
+                {
+                    if(grid[i][j].kind==grid[i-1][j].kind)
+                    {
+                        for(int n=-1; n<=1; n++)
+                        {
+                            grid[i+n][j].match++;
+                        }
+                    }
+                }
+
+                if(grid[i][j].kind==grid[i][j+1].kind)
+                {
+                    if(grid[i][j].kind==grid[i][j-1].kind)
+                    {
+                        for(int n=-1; n<=1; n++)
+                        {
+                            grid[i][j+n].match++;
+                        }
+                    }
+                }
+            }
+        }
+
+        //moving animation
+        isMoving=false;
+        for(int i=1; i<=8; i++)
+        {
+            for(int j=1; j<=8; j++)
+            {
+                piece &p = grid[i][j];
+                int dx,dy;
+                for(int n=0; n<3; n++)        // 3 times speed
+                {
+                    dx= p.x-p.col*tile;
+                    dy= p.y-p.row*tile;
+                    if(dx)
+                    {
+                        p.x=p.x-dx/abs(dx);
+                    }
+                    if(dy)
+                    {
+                        p.y=p.y-dy/abs(dy);
+                    }
+                }
+                if(dx||dy)
+                {
+                    isMoving=true;
+                }
+            }
+        }
+
+        //deleting animation
+        if(!isMoving)
+        {
+            for(int i=1; i<=8; i++)
+            {
+                for(int j=1; j<=8; j++)
+                {
+                    if(grid[i][j].match)
+                    {
+                        if(grid[i][j].deleteanimationstyle>10)
+                        {
+                            grid[i][j].deleteanimationstyle=grid[i][j].deleteanimationstyle-10;
+                            isMoving=true;
+                        }
+                    }
+                }
+            }
+        }
+
+        //get Score
+        int score=0;
+        for(int i=1; i<=8; i++)
+        {
+            for(int j=1; j<=8; j++)
+            {
+                score+=grid[i][j].match;
+
+                if(grid[i][j].match)
+                {
+                    //point = ;
+                    pointx+=1;
+                }
+            }
+        }
+
+        //swap back is no match
+        if(isSwap && !isMoving)
+        {
+            if(!score)
+            {
+                swap(grid[y0][x0],grid[y][x]);
+                isSwap=false;
+            }
+        }
+
+
+        if(time.asSeconds()>60)
+        {
+            minutecounting++;
+            if(minutecounting==2)
+            {
+                if(pointx>8000)
+                {
+                    app3.close();
+                    //level3_pass_page();
+                }
+                else
+                {
+                    app3.close();
+                    move_ending_page();
+                }
+            }
+            time = clock.restart();
+        }
+
+
+        //grid updating after matching
+        if(!isMoving)
+        {
+            for(int i=8; i>=1; i--)
+            {
+                for(int j=1; j<=8; j++)
+                {
+                    if(grid[i][j].match)
+                    {
+                        for(int n=i; n>=1; n--)
+                        {
+                            if(!grid[n][j].match)
+                            {
+                                swap(grid[n][j],grid[i][j]);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            for(int j=1; j<=8; j++)
+            {
+                for(int i=8,n=0; i>=1; i--)
+                {
+                    if(grid[i][j].match)
+                    {
+                        grid[i][j].kind=rand()%5;
+                        grid[i][j].y= -tile*n++;
+                        grid[i][j].match=0;
+                        grid[i][j].deleteanimationstyle=255;
+                    }
+                }
+            }
+        }
+
+        //draw//
+        app3.draw(background);
+
+        for(int i=1; i<=8; i++)
+        {
+            for(int j=1; j<=8; j++)
+            {
+                piece p = grid[i][j];
+                gems.setTextureRect(IntRect(p.kind*43,0,45,45));
+                gems.setColor(Color(255,255,255,p.deleteanimationstyle));
+                gems.setPosition(p.x,p.y);
+                gems.move(offset.x-tile,offset.y-tile);
+                app3.draw(gems);
+            }
+        }
+
+        app3.draw(game1);
+        app3.draw(game2);
+        app3.draw(game3);
+
+        app3.draw(point_bg);
+        app3.draw(point_bg2);
+        app3.draw(point_bg3);
+        app3.draw(ttt2);
+        app3.draw(tminute1);
+        app3.draw(tsecond1);
+
+        app3.display();
+
+    }
+
+}
+
+
 int Level3_page()
 {
     int clock3=0;
@@ -183,7 +524,7 @@ int Level3_page()
                 if(Keyboard::isKeyPressed(Keyboard::Enter))
                 {
                     page3.close();
-                    //Game3();
+                    Game3();
                 }
 
             }
@@ -1184,10 +1525,10 @@ event1:
                         Text Td("Level 4", fontx, 40);
                         Text Te("SELECT LEVEL :", fonty, 50);
 
-                        Ta.setFillColor(sf::Color::Green);
-                        Tb.setFillColor(sf::Color::Green);
-                        Tc.setFillColor(sf::Color::Green);
-                        Td.setFillColor(sf::Color::Green);
+                        Ta.setFillColor(sf::Color::Red);
+                        Tb.setFillColor(sf::Color::Red);
+                        Tc.setFillColor(sf::Color::Red);
+                        Td.setFillColor(sf::Color::Red);
                         Te.setFillColor(sf::Color::Magenta);
 
                         Ta.setPosition(362, 111);
@@ -1197,12 +1538,12 @@ event1:
                         Te.setPosition(160,10);
 
                         Texture page_bg, page_level1, page_level2, page_level3, page_level4, page_arrow, page_style;
-                        page_arrow.loadFromFile("image/night2.png");
+                        page_arrow.loadFromFile("image/Green.png");
                         page_bg.loadFromFile("image/score_background.jpg");
-                        page_level1.loadFromFile("image/button1.png");
-                        page_level2.loadFromFile("image/button1.png");
-                        page_level3.loadFromFile("image/button1.png");
-                        page_level4.loadFromFile("image/button1.png");
+                        page_level1.loadFromFile("image/night2.png");
+                        page_level2.loadFromFile("image/night2.png");
+                        page_level3.loadFromFile("image/night2.png");
+                        page_level4.loadFromFile("image/night2.png");
                         page_style.loadFromFile("image/Design.png");
 
                         Sprite level_bg(page_bg), level1(page_level1), level2(page_level2), level3(page_level3), level4(page_level4), level_arrow(page_arrow), level_style1(page_style);
