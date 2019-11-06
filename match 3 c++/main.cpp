@@ -48,7 +48,7 @@ void move_ending_page()
     fonTf1.loadFromFile("fonts/COLONNA.ttf");
     fonTf2.loadFromFile("fonts/ITCKRIST.ttf");
 
-    RenderWindow Fail1(VideoMode(560,401), "Fail-1");
+    RenderWindow Fail1(VideoMode(760,600), "Fail-1");
 
     Texture fail_bg;
     fail_bg.loadFromFile("image/bg_night.jpg");
@@ -99,7 +99,7 @@ int Level4_page()
     best41.loadFromFile("fonts/comic.ttf");
     best42.loadFromFile("fonts/VINERITC.ttf");
 
-    RenderWindow page4(VideoMode(560,401), "Level_4 Starting");
+    RenderWindow page4(VideoMode(760,600), "Level_4 Starting");
 
     Text t41("LEVEL -- 4", best41, 50);
     Text t42("<Press ENTER to Continue>", best42, 25);
@@ -157,7 +157,7 @@ void Game3()
 
     sf::Time time;
 
-    RenderWindow app3(VideoMode(560,401), "Match-3 Game!");
+    RenderWindow app3(VideoMode(760,600), "Match-3 Game!");
     app3.setFramerateLimit(60);
 
     pointx=0;
@@ -492,7 +492,7 @@ int Level3_page()
     best31.loadFromFile("fonts/comic.ttf");
     best32.loadFromFile("fonts/VINERITC.ttf");
 
-    RenderWindow page3(VideoMode(560,401), "Level_3 Starting");
+    RenderWindow page3(VideoMode(760,600), "Level_3 Starting");
 
     Text t31("LEVEL -- 3", best31, 50);
     Text t32("<Press ENTER to Continue>", best32, 25);
@@ -550,7 +550,7 @@ int level2_pass_page()
     fonT21.loadFromFile("fonts/COLONNA.ttf");
     fonT22.loadFromFile("fonts/ITCKRIST.ttf");
 
-    RenderWindow pass2(VideoMode(560,401), "Pass-2");
+    RenderWindow pass2(VideoMode(760,600), "Pass-2");
 
     Texture pass_bg,pass_bg2;
     pass_bg.loadFromFile("image/bg_night.jpg");
@@ -598,7 +598,7 @@ int level2_pass_page()
 
 void Game2()
 {
-    RenderWindow app2(VideoMode(560,401), "Match-3 Level-2...!");
+    RenderWindow app2(VideoMode(760,600), "Match-3 Level-2...!");
     app2.setFramerateLimit(60);
 
     Texture t1,t2,t3,t4,t5;
@@ -912,7 +912,7 @@ void Level2_page()
     best21.loadFromFile("fonts/comic.ttf");
     best22.loadFromFile("fonts/VINERITC.ttf");
 
-    RenderWindow page2(VideoMode(560,401), "Level_2 Starting");
+    RenderWindow page2(VideoMode(760,600), "Level_2 Starting");
 
     Text t21("LEVEL -- 2", best21, 50);
     Text t22("<Press ENTER to Continue>", best22, 25);
@@ -970,7 +970,7 @@ int level1_pass_page()
     fonT1.loadFromFile("fonts/COLONNA.ttf");
     fonT2.loadFromFile("fonts/ITCKRIST.ttf");
 
-    RenderWindow pass1(VideoMode(560,401), "Pass-1");
+    RenderWindow pass1(VideoMode(760,600), "Pass-1");
 
     Texture pass_bg,pass_bg2;
     pass_bg.loadFromFile("image/bg_night.jpg");
@@ -1018,7 +1018,7 @@ int level1_pass_page()
 
 void Game1()
 {
-    RenderWindow app1(VideoMode(560,401), "Match-3 Level-1...!");
+    RenderWindow app1(VideoMode(760,600), "Match-3 Level-1...!");
     app1.setFramerateLimit(60);
 
     Texture t1,t2,t3,t4,t5;
@@ -1332,7 +1332,7 @@ int Level1_page()
     best11.loadFromFile("fonts/comic.ttf");
     best12.loadFromFile("fonts/VINERITC.ttf");
 
-    RenderWindow page1(VideoMode(560,401), "Level_1 Starting");
+    RenderWindow page1(VideoMode(760,600), "Level_1 Starting");
 
     Text t11("LEVEL -- 1", best11, 50);
     Text t12("<Press ENTER to Continue>", best12, 25);
@@ -1387,53 +1387,6 @@ int Level1_page()
 void  High_score()
 {
 
-    Font fontA, fontB;
-    fontA.loadFromFile("fonts/AGENCYR.ttf");
-    fontB.loadFromFile("fonts/COLONNA.ttf");
-
-    RenderWindow Hscore(VideoMode(560,401), "**High Score**");
-
-    Text T1("Your", fontA, 35);
-    Text T2("HIGH SCORE :", fontB, 50);
-
-    T1.setFillColor(sf::Color::Red);
-    T2.setFillColor(sf::Color::Yellow);
-
-    T1.setPosition(110, 150);
-    T2.setPosition(170,135);
-
-    Texture score_bg, board_bg;
-    score_bg.loadFromFile("image/score_background_drops.jpg");
-    board_bg.loadFromFile("image/button.png");
-
-    Sprite scoreback(score_bg), scoreboard(board_bg);
-    scoreboard.setPosition(135,200);
-
-    while(Hscore.isOpen())
-    {
-        Event score_event;
-        while(Hscore.pollEvent(score_event))
-        {
-            if(score_event.type== Event::KeyPressed)
-            {
-
-                if(Keyboard::isKeyPressed(Keyboard::Escape))
-                {
-                    Hscore.close();
-                }
-
-            }
-        }
-
-        Hscore.clear();
-
-        Hscore.draw(scoreback);
-        Hscore.draw(scoreboard);
-        Hscore.draw(T1);
-        Hscore.draw(T2);
-        Hscore.display();
-
-    }
 
 }
 
@@ -1447,18 +1400,19 @@ event1:
     font1.loadFromFile("fonts/ITCKRIST.ttf");
     font2.loadFromFile("fonts/VINERITC.ttf");
     font3.loadFromFile("fonts/MAIAN.ttf");
-    RenderWindow MainPage(VideoMode(560, 401), "Main Page");
+    RenderWindow MainPage(VideoMode(760, 600), "Main Page");
 
     Texture w_background, w_logo, w_style;
 
     //text fixing
 
-    Text w_t("Welcome To", font1, 35);
-    Text t1("MATCH-3", font2, 50);
-    Text t2("MANIA", font2, 35);
-    Text t3("Play Game", font3, 25);
-    Text t4("High Score", font3, 25);
-    Text t5("Exit", font3, 25);
+    Text w_t("Welcome To", font1, 38);
+    Text t1("MATCH-3", font2, 55);
+    Text t2("MANIA", font2, 38);
+    Text t3("Play Game", font3, 30);
+    Text t4("High Score", font3, 30);
+    Text t5("Instructions", font3, 30);
+    Text t6("Exit", font3, 30);
     Text dv("Developed By ==> Raisul & Himel", font1, 20);
 
     //text coloring
@@ -1469,28 +1423,30 @@ event1:
     t3.setFillColor(sf::Color::Red);
     t4.setFillColor(sf::Color::Red);
     t5.setFillColor(sf::Color::Red);
+    t6.setFillColor(sf::Color::Red);
     dv.setFillColor(sf::Color::Green);
 
     //text position declaring
 
-    w_t.setPosition(175, 50);
-    t1.setPosition(100, 115);
-    t2.setPosition(350, 125);
-    t3.setPosition(205, 185);
-    t4.setPosition(205, 225);
-    t5.setPosition(205, 265);
-    dv.setPosition(220,350);
+    w_t.setPosition(275, 50);
+    t1.setPosition(180, 125);
+    t2.setPosition(450, 135);
+    t3.setPosition(305, 230);
+    t4.setPosition(305, 270);
+    t5.setPosition(305, 310);
+    t6.setPosition(305, 350);
+    dv.setPosition(420,550);
 
     //image loading
 
     w_background.loadFromFile("image/neon_shape.jpg");
-    w_logo.loadFromFile("image/galaxy-png.png");
+    w_logo.loadFromFile("image/galaxy-png.jpg");
     w_style.loadFromFile("image/DownArrow.png");
 
 
     Sprite logo_s(w_logo), b_s(w_background), a_s(w_style);
-    xposition=195;
-    yposition=187;
+    xposition=300;
+    yposition=232;
     logo_s.setPosition(xposition,yposition);
 
 
@@ -1505,15 +1461,79 @@ event1:
             {
                 if(Keyboard::isKeyPressed(Keyboard::Enter))
                 {
-                    if(yposition==267)
+                    if(yposition==257)
                     {
                         MainPage.close();
                     }
-                    else if(yposition==227)
+                    else if(yposition==312)
                     {
-                        High_score();
+                        MainPage.close();
+                       // instruction_page;
                     }
-                    else if(yposition==187)
+                    else if(yposition==272)
+                    {
+                        /*High score page part*/
+
+                        Font fontA, fontB;
+                        fontA.loadFromFile("fonts/AGENCYR.ttf");
+                        fontB.loadFromFile("fonts/COLONNA.ttf");
+
+
+                        Text T1("Your", fontA, 35);
+                        Text T2("HIGH SCORE :", fontB, 50);
+                        Text T3("Press ESC to go back", fontA, 30);
+
+                        T1.setFillColor(sf::Color::Red);
+                        T2.setFillColor(sf::Color::Yellow);
+                        T3.setFillColor(sf::Color::Yellow);
+
+                        T1.setPosition(110, 150);
+                        T2.setPosition(170,135);
+                        T3.setPosition(45,2);
+
+                        Texture score_bg, board_bg, escape_arrow;
+                        score_bg.loadFromFile("image/score_background_drops.jpg");
+                        board_bg.loadFromFile("image/button.png");
+                        escape_arrow.loadFromFile("image/dynamic_blue_left.png");
+
+                        Sprite scoreback(score_bg), scoreboard(board_bg), back_arrow(escape_arrow);
+                        scoreboard.setPosition(135,200);
+                        back_arrow.setPosition(-3,0);
+
+                        while(MainPage.isOpen())
+                        {
+                            Event score_event;
+                            while(MainPage.pollEvent(score_event))
+                            {
+                                if(score_event.type== Event::Closed)
+                                {
+                                    goto event1;
+                                }
+
+                                if(score_event.type== Event::KeyPressed)
+                                {
+
+                                    if(Keyboard::isKeyPressed(Keyboard::Escape))
+                                    {
+                                        goto event1;
+                                    }
+
+                                }
+                            }
+
+                            MainPage.clear();
+
+                            MainPage.draw(scoreback);
+                            MainPage.draw(scoreboard);
+                            MainPage.draw(back_arrow);
+                            MainPage.draw(T3);
+                            MainPage.draw(T1);
+                            MainPage.draw(T2);
+                            MainPage.display();
+
+                        }
+                    }
+                    else if(yposition==232)
                     {
                         Font fontx,fonty;
                         fontx.loadFromFile("fonts/AGENCYB.ttf");
@@ -1643,9 +1663,9 @@ event1:
                 else if(Keyboard::isKeyPressed(Keyboard::Up))
                 {
                     yposition-=40;
-                    if(yposition<187)
+                    if(yposition<232)
                     {
-                        yposition+=(3*40);
+                        yposition+=(4*40);
                     }
                     logo_s.setPosition(xposition,yposition);
                 }
@@ -1654,9 +1674,9 @@ event1:
                 else if(Keyboard::isKeyPressed(Keyboard::Down))
                 {
                     yposition+=40;
-                    if(yposition>267)
+                    if(yposition>352)
                     {
-                        yposition-=(3*40);
+                        yposition-=(4*40);
                     }
                     logo_s.setPosition(xposition,yposition);
                 }
@@ -1671,6 +1691,7 @@ event1:
         MainPage.draw(a_s);
         MainPage.draw(logo_s);
         MainPage.draw(w_t);
+        MainPage.draw(t6);
         MainPage.draw(t5);
         MainPage.draw(t4);
         MainPage.draw(t3);
