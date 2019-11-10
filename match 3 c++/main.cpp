@@ -1,5 +1,7 @@
 #include <SFML/Graphics.hpp>
 
+#include<SFML/Audio.hpp>
+
 #include<SFML/System/Clock.hpp>
 
 #include<bits/stdc++.h>
@@ -1390,6 +1392,14 @@ level_event1:
 
 int main()
 {
+    sf::Music music;
+
+    while(Window.isOpen())
+    {
+        music.openFromFile("music.wav");
+    }
+    music.play();
+
 event1:
     int xposition,yposition;
 
