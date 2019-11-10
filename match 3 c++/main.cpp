@@ -1392,15 +1392,8 @@ level_event1:
 
 int main()
 {
-    sf::Music music;
-
-    while(Window.isOpen())
-    {
-        music.openFromFile("music.wav");
-    }
-    music.play();
-
 event1:
+    Music music;
     int xposition,yposition;
 
     Font font1, font2, font3, font4, font5, font6;
@@ -1410,6 +1403,7 @@ event1:
     font4.loadFromFile("fonts/AGENCYR.ttf");
     font5.loadFromFile("fonts/OCRAEXT.ttf");
     font6.loadFromFile("fonts/COLONNA.ttf");
+
     RenderWindow MainPage(VideoMode(760, 600), "Main Page");
 
     Texture w_background, w_logo, w_style;
@@ -1458,6 +1452,10 @@ event1:
     xposition=300;
     yposition=232;
     logo_s.setPosition(xposition,yposition);
+
+    music.openFromFile("music/Fantasy Game Loop.wav");
+    music.setVolume(50);
+    music.play();
 
 
     while(MainPage.isOpen())
