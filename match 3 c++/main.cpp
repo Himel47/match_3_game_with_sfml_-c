@@ -1392,15 +1392,9 @@ level_event1:
 
 int main()
 {
-    sf::Music music;
-
-    if(!music.openFromFile("music.wav"))
-    {
-        cout<<"ERROR"<<endl;
-    }
-    music.play();
 
 event1:
+    Music music;
     int xposition,yposition;
 
     Font font1, font2, font3, font4, font5, font6;
