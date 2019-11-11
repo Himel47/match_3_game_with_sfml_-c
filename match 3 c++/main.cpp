@@ -1394,9 +1394,9 @@ int main()
 {
     sf::Music music;
 
-    while(Window.isOpen())
+    if(!music.openFromFile("music.wav"))
     {
-        music.openFromFile("music.wav");
+        cout<<"ERROR"<<endl;
     }
     music.play();
 
