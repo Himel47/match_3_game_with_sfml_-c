@@ -1078,7 +1078,7 @@ level_event1:
                     Sprite background(t1), gems(t2),point_bg(t3), point_bg2(t4), point_bg3(t5);
                     point_bg.setPosition(420,70);
                     point_bg2.setPosition(420,190);
-                    point_bg3.setPosition(390,220);
+                    point_bg3.setPosition(590,420);
 
                     //game page writings
 
@@ -1101,11 +1101,11 @@ level_event1:
                     {
                         for(int j=1; j<=8; j++)
                         {
-                            grid[i][j].kind=rand()%5;
+                            grid[i][j].kind=rand()%7;
                             grid[i][j].col=j;
                             grid[i][j].row=i;
                             grid[i][j].x=j*tile;
-                            grid[i][j].y=i*tile;
+                            grid[i][j].y=i*tile+40;
                         }
                     }
 
@@ -1260,6 +1260,7 @@ level_event1:
 
 
                         //get Score
+
                         int score=0;
                         for(int i=1; i<=8; i++)
                         {
@@ -1269,7 +1270,6 @@ level_event1:
 
                                 if(grid[i][j].match)
                                 {
-                                    //point = ;
                                     pointx+=1;
                                     if(pointx>6000)
                                     {
@@ -1410,6 +1410,7 @@ event1:
     font4.loadFromFile("fonts/AGENCYR.ttf");
     font5.loadFromFile("fonts/OCRAEXT.ttf");
     font6.loadFromFile("fonts/COLONNA.ttf");
+
     RenderWindow MainPage(VideoMode(760, 600), "Main Page");
 
     Texture w_background, w_logo, w_style;
@@ -1458,6 +1459,10 @@ event1:
     xposition=300;
     yposition=232;
     logo_s.setPosition(xposition,yposition);
+
+    music.openFromFile("music/Fantasy Game Loop.wav");
+    music.setVolume(50);
+    music.play();
 
 
     while(MainPage.isOpen())
