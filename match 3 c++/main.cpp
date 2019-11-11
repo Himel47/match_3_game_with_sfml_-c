@@ -1454,8 +1454,7 @@ event1:
     yposition=232;
     logo_s.setPosition(xposition,yposition);
 
-    music.openFromFile("music/Fantasy Game Loop.wav");
-    music.setVolume(50);
+    music.openFromFile("music/rein of cast.ogg");
     music.play();
 
 
