@@ -633,6 +633,7 @@ game_event1:
 
                                                 if(Keyboard::isKeyPressed(Keyboard::Enter))
                                                 {
+                                                    music3.stop();
                                                     level_3.close();
                                                     Level4_page();
                                                 }
@@ -985,13 +986,13 @@ game_event1:
                                         level_2.draw(restart);
                                         if(flag==0)
                                         {
-                                        level_2.draw(sound);
-                                        level_2.draw(text4);
+                                            level_2.draw(sound);
+                                            level_2.draw(text4);
                                         }
                                         else if(flag==1)
                                         {
-                                        level_2.draw(mute);
-                                        level_2.draw(text3);
+                                            level_2.draw(mute);
+                                            level_2.draw(text3);
                                         }
                                         level_2.draw(exit);
                                         level_2.draw(text1);
@@ -1169,9 +1170,9 @@ game_event1:
                                             Text passT22("You PASSED this Level", best25, 35);
                                             Text passT23("Press ENTER for Next Level", best23, 30);
 
-                                            passT21.setFillColor(sf::Color::Red);
-                                            passT22.setFillColor(sf::Color::Red);
-                                            passT23.setFillColor(sf::Color::Red);
+                                            passT21.setFillColor(sf::Color::Yellow);
+                                            passT22.setFillColor(sf::Color::Yellow);
+                                            passT23.setFillColor(sf::Color::Yellow);
 
                                             passT21.setPosition(160,150);
                                             passT22.setPosition(180,350);
@@ -1187,6 +1188,7 @@ game_event1:
 
                                                         if(Keyboard::isKeyPressed(Keyboard::Enter))
                                                         {
+                                                            music2.stop();
                                                             level_2.close();
                                                             Level3_page();
                                                         }
@@ -1735,9 +1737,9 @@ game_event1:
                                             Text passT2("You PASSED this Level", best15, 35);
                                             Text passT3("Press ENTER for Next Level", best13, 30);
 
-                                            passT1.setFillColor(sf::Color::Red);
-                                            passT2.setFillColor(sf::Color::Red);
-                                            passT3.setFillColor(sf::Color::Red);
+                                            passT1.setFillColor(sf::Color::Yellow);
+                                            passT2.setFillColor(sf::Color::Yellow);
+                                            passT3.setFillColor(sf::Color::Yellow);
 
                                             passT1.setPosition(160,150);
                                             passT2.setPosition(180,350);
@@ -1753,6 +1755,7 @@ game_event1:
 
                                                         if(Keyboard::isKeyPressed(Keyboard::Enter))
                                                         {
+                                                            music1.stop();
                                                             level_1.close();
                                                             Level2_page();
                                                         }
@@ -1973,8 +1976,71 @@ event1:
                     }
                     else if(yposition==312)
                     {
-                        MainPage.close();
-                        // instruction_page;
+                        /* Instruction Page Part */
+
+                        Text t1("Welcome to our Match - 3 Mania . You  have  to", font5, 25);
+                        Text t2("match  three  or  more gems  to  get  Points .", font5, 25);
+                        Text t3("To match you have to use the mouse click , and", font5, 25);
+                        Text t4("ESCAPE button to pause any of the game levels.", font5, 25);
+                        Text t5("You are given some  game activity instructions", font5, 25);
+                        Text t6("in game pages . Hope you will ENJOY the GAME .", font5, 25);
+                        Text t7("Thank You...", font5, 25);
+                        Text t8("Press ESC to go back", font5, 30);
+
+                        t8.setPosition(45,2);
+                        t1.setPosition(45,120);
+                        t2.setPosition(45,170);
+                        t3.setPosition(45,220);
+                        t4.setPosition(45,270);
+                        t5.setPosition(45,320);
+                        t6.setPosition(45,370);
+                        t7.setPosition(45,420);
+
+                        t1.setFillColor(Color::Black);
+                        t2.setFillColor(Color::Black);
+                        t3.setFillColor(Color::Black);
+                        t4.setFillColor(Color::Black);
+                        t5.setFillColor(Color::Black);
+                        t6.setFillColor(Color::Black);
+                        t7.setFillColor(Color::Black);
+                        t8.setFillColor(Color::Black);
+
+                        Texture a1,a2;
+
+                        a1.loadFromFile("image/score_background.jpg");
+                        a2.loadFromFile("image/dynamic_blue_left.png");
+
+                        Sprite BackGround(a1), Exit_arrow(a2);
+                        Exit_arrow.setPosition(-3,0);
+
+                        while(MainPage.isOpen())
+                        {
+                            Event ins_event;
+                            while(MainPage.pollEvent(ins_event))
+                            {
+                                if(ins_event.type== Event::KeyPressed)
+                                {
+                                    if(Keyboard::isKeyPressed(Keyboard::Escape))
+                                    {
+                                        goto event1;
+                                    }
+                                }
+                            }
+
+                            MainPage.clear();
+                            MainPage.draw(BackGround);
+                            MainPage.draw(Exit_arrow);
+                            MainPage.draw(t1);
+                            MainPage.draw(t2);
+                            MainPage.draw(t3);
+                            MainPage.draw(t4);
+                            MainPage.draw(t5);
+                            MainPage.draw(t6);
+                            MainPage.draw(t7);
+                            MainPage.draw(t8);
+
+                            MainPage.display();
+                        }
                     }
                     else if(yposition==272)
                     {
