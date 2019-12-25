@@ -2247,6 +2247,7 @@ event2:
 
                                     else if(Keyboard::isKeyPressed(Keyboard::Enter))
                                     {
+                                        music.stop();
                                         Level1_page(flag);
                                         goto event2;
                                     }
