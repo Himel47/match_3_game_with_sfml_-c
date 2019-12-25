@@ -20,7 +20,7 @@ string stringsecond1="";
 int secondcounting=0, extra_timer=0;
 int minutecounting=0;
 
-int pointx=0, pointy=0, moves1=20, moves2=20;
+int pointx=0, pointy=0, moves1=20, moves2=20, flag;
 int tile=45; //tile size
 Vector2i offset(36,18);
 
@@ -106,7 +106,7 @@ void move_ending_page()
 }
 
 
-void Level4_page()
+void Level4_page(int flag)
 {
     int clock4=0;
 
@@ -166,7 +166,7 @@ void Level4_page()
 }
 
 
-void Level3_page()
+void Level3_page(int flag)
 {
 level_event1:
     Music music3;
@@ -174,7 +174,7 @@ level_event1:
 
     RenderWindow level_3(VideoMode(760,600), "Level - 3");
 
-    int flag=0, posy;
+    int posy;
 
     Font best31, best32,best33,best34,best35;
     best31.loadFromFile("fonts/comic.ttf");
@@ -202,8 +202,6 @@ level_event1:
 
     Sprite Back3(bg3), exitarrow(arrow_exit);
     exitarrow.setPosition(-3, 0);
-
-    music3.play();
 
     while(level_3.isOpen())
     {
@@ -633,9 +631,8 @@ game_event1:
 
                                                 if(Keyboard::isKeyPressed(Keyboard::Enter))
                                                 {
-                                                    music3.stop();
                                                     level_3.close();
-                                                    Level4_page();
+                                                    Level4_page(flag);
                                                 }
 
                                             }
@@ -754,13 +751,13 @@ game_event1:
 }
 
 
-void Level2_page()
+void Level2_page(int flag)
 {
 level_event2:
     Music music2;
     music2.openFromFile("music/candy crush.ogg");
 
-    int flag=0, posy;
+    int posy;
     int clock2=0;
 
     Font best21, best22, best23, best24, best25;
@@ -789,8 +786,6 @@ level_event2:
 
     Sprite Back2(bg2), arrow_2(arrowexit);
     arrow_2.setPosition(-3,0);
-
-    music2.play();
 
     while(level_2.isOpen())
     {
@@ -1165,6 +1160,7 @@ game_event1:
                                             pass_bg2.loadFromFile("image/firecrackers.png");
 
                                             Sprite bg21_pass(pass_bg), bg22_pass(pass_bg2);
+                                            bg22_pass.setPosition(60,30);
 
                                             Text passT21("CONGRATULATIONS..!!", best24, 45);
                                             Text passT22("You PASSED this Level", best25, 35);
@@ -1188,9 +1184,8 @@ game_event1:
 
                                                         if(Keyboard::isKeyPressed(Keyboard::Enter))
                                                         {
-                                                            music2.stop();
                                                             level_2.close();
-                                                            Level3_page();
+                                                            Level3_page(flag);
                                                         }
 
                                                     }
@@ -1319,13 +1314,13 @@ game_event1:
 }
 
 
-void Level1_page()
+void Level1_page(int flag)
 {
 level_event1:
     Music music1;
     music1.openFromFile("music/candy crush.ogg");
 
-    int flag=0, posy;
+    int posy;
     int clock1=0;
 
     Font best11, best12,best13,best14,best15;
@@ -1355,8 +1350,6 @@ level_event1:
     Sprite Back1(bg1), arrow_1(arrow1);
 
     arrow_1.setPosition(-3,0);
-
-    music1.play();
 
     while(level_1.isOpen())
     {
@@ -1737,9 +1730,9 @@ game_event1:
                                             Text passT2("You PASSED this Level", best15, 35);
                                             Text passT3("Press ENTER for Next Level", best13, 30);
 
-                                            passT1.setFillColor(sf::Color::Yellow);
-                                            passT2.setFillColor(sf::Color::Yellow);
-                                            passT3.setFillColor(sf::Color::Yellow);
+                                            passT1.setFillColor(sf::Color::Black);
+                                            passT2.setFillColor(sf::Color::Black);
+                                            passT3.setFillColor(sf::Color::Black);
 
                                             passT1.setPosition(160,150);
                                             passT2.setPosition(180,350);
@@ -1755,9 +1748,8 @@ game_event1:
 
                                                         if(Keyboard::isKeyPressed(Keyboard::Enter))
                                                         {
-                                                            music1.stop();
                                                             level_1.close();
-                                                            Level2_page();
+                                                            Level2_page(flag);
                                                         }
 
                                                     }
@@ -1894,11 +1886,10 @@ game_event1:
 
 int main()
 {
-
 event1:
     Music music;
     music.openFromFile("music/rein of cast.ogg");
-    int xposition,yposition;
+    int xposition, yposition, poss;
 
     Font font1, font2, font3, font4, font5, font6;
     font1.loadFromFile("fonts/ITCKRIST.ttf");
@@ -1920,7 +1911,8 @@ event1:
     Text t3("Play Game", font3, 30);
     Text t4("High Score", font3, 30);
     Text t5("Instructions", font3, 30);
-    Text t6("Exit", font3, 30);
+    Text t6("Music", font3, 30);
+    Text t7("Exit", font3, 30);
     Text dv("Developed By ==> Raisul & Himel", font1, 20);
 
     //text coloring
@@ -1932,6 +1924,7 @@ event1:
     t4.setFillColor(sf::Color::Red);
     t5.setFillColor(sf::Color::Red);
     t6.setFillColor(sf::Color::Red);
+    t7.setFillColor(sf::Color::Red);
     dv.setFillColor(sf::Color::Green);
 
     //text position declaring
@@ -1943,6 +1936,7 @@ event1:
     t4.setPosition(305, 270);
     t5.setPosition(305, 310);
     t6.setPosition(305, 350);
+    t7.setPosition(305, 390);
     dv.setPosition(420,550);
 
     //image loading
@@ -1958,7 +1952,7 @@ event1:
     logo_s.setPosition(xposition,yposition);
 
     music.play();
-
+event2:
     while(MainPage.isOpen())
     {
         Event menu_event;
@@ -1970,9 +1964,120 @@ event1:
             {
                 if(Keyboard::isKeyPressed(Keyboard::Enter))
                 {
-                    if(yposition==352)
+                    if(yposition==392)
                     {
                         MainPage.close();
+                    }
+                    else if(yposition==352)
+                    {
+                        poss=195;
+
+                        Text a1("Sound ???", font1, 40);
+                        Text a2("Yes", font3, 25);
+                        Text a3("Yes", font3, 25);
+                        Text a4("No", font3, 25);
+                        Text a5("No", font3, 25);
+                        Text a6("Press ESC to Mainpage", font5, 30);
+
+                        a1.setFillColor(Color::White);
+                        a2.setFillColor(Color::Yellow);
+                        a3.setFillColor(Color::White);
+                        a4.setFillColor(Color::Yellow);
+                        a5.setFillColor(Color::White);
+                        a6.setFillColor(Color::Yellow);
+
+                        a1.setPosition(290,100);
+                        a6.setPosition(45,2);
+
+                        Texture m1,m2,m3,m4,m5;
+
+                        m1.loadFromFile("image/neon_shape.jpg");
+                        m2.loadFromFile("image/sound.jpg");
+                        m3.loadFromFile("image/mute.jpg");
+                        m4.loadFromFile("image/dynamic_blue_left.png");
+                        m5.loadFromFile("image/button2.png");
+
+                        Sprite s(m1), s1(m2), s2(m3), s3(m4), s4(m5);
+                        s1.setPosition(420,200);
+                        s2.setPosition(420,200);
+                        s3.setPosition(-3,0);
+                        s4.setPosition(270,poss);
+
+                        while(MainPage.isOpen())
+                        {
+                            Event sound_page;
+                            while(MainPage.pollEvent(sound_page))
+                            {
+                                if(sound_page.type==Event::KeyPressed)
+                                {
+                                    if(Keyboard::isKeyPressed(Keyboard::Escape))
+                                    {
+                                        goto event2;
+                                    }
+                                    else if(Keyboard::isKeyPressed(Keyboard::Down))
+                                    {
+                                        poss=poss+50;
+                                        if(poss>245)
+                                        {
+                                            poss=195;
+                                        }
+                                        s4.setPosition(270,poss);
+                                    }
+                                    else if(Keyboard::isKeyPressed(Keyboard::Up))
+                                    {
+                                        poss=poss-50;
+                                        if(poss<195)
+                                        {
+                                            poss=245;
+                                        }
+                                        s4.setPosition(270,poss);
+                                    }
+                                    else if(Keyboard::isKeyPressed(Keyboard::Enter))
+                                    {
+                                        if(poss==245 && flag==0)
+                                        {
+                                            music.stop();
+                                            flag=1;
+                                        }
+                                        if(poss==195 && flag==1)
+                                        {
+                                            music.play();
+                                            flag=0;
+                                        }
+                                    }
+                                }
+                            }
+                            MainPage.clear();
+                            MainPage.draw(s);
+                            MainPage.draw(s3);
+                            if(flag==0)
+                            {
+                                MainPage.draw(s1);
+                                MainPage.draw(s4);
+                            }
+                            else if(flag==1)
+                            {
+                                MainPage.draw(s2);
+                                MainPage.draw(s4);
+                            }
+                            if(poss==195)
+                            {
+                                a3.setPosition(280,200);
+                                a4.setPosition(280,250);
+                                MainPage.draw(a3);
+                                MainPage.draw(a4);
+                            }
+                            else
+                            {
+                                a2.setPosition(280,200);
+                                a5.setPosition(280,250);
+                                MainPage.draw(a2);
+                                MainPage.draw(a5);
+                            }
+                            MainPage.draw(a1);
+                            MainPage.draw(a6);
+                            MainPage.display();
+                        }
                     }
                     else if(yposition==312)
                     {
@@ -1985,7 +2090,7 @@ event1:
                         Text t5("You are given some  game activity instructions", font5, 25);
                         Text t6("in game pages . Hope you will ENJOY the GAME .", font5, 25);
                         Text t7("Thank You...", font5, 25);
-                        Text t8("Press ESC to go back", font5, 30);
+                        Text t8("Press ESC to Mainpage", font5, 30);
 
                         t8.setPosition(45,2);
                         t1.setPosition(45,120);
@@ -2022,7 +2127,7 @@ event1:
                                 {
                                     if(Keyboard::isKeyPressed(Keyboard::Escape))
                                     {
-                                        goto event1;
+                                        goto event2;
                                     }
                                 }
                             }
@@ -2074,7 +2179,7 @@ event1:
                             {
                                 if(score_event.type== Event::Closed)
                                 {
-                                    goto event1;
+                                    goto event2;
                                 }
 
                                 if(score_event.type== Event::KeyPressed)
@@ -2082,7 +2187,7 @@ event1:
 
                                     if(Keyboard::isKeyPressed(Keyboard::Escape))
                                     {
-                                        goto event1;
+                                        goto event2;
                                     }
 
                                 }
@@ -2130,21 +2235,20 @@ event1:
                             {
                                 if(level_event.type==Event::Closed)
                                 {
-                                    goto event1;
+                                    goto event2;
                                 }
                                 if(level_event.type== Event::KeyPressed)
                                 {
 
                                     if(Keyboard::isKeyPressed(Keyboard::Escape))
                                     {
-                                        goto event1;
+                                        goto event2;
                                     }
 
                                     else if(Keyboard::isKeyPressed(Keyboard::Enter))
                                     {
-                                        music.stop();
-                                        Level1_page();
-                                        goto event1;
+                                        Level1_page(flag);
+                                        goto event2;
                                     }
 
                                 }
@@ -2173,7 +2277,7 @@ event1:
                     yposition-=40;
                     if(yposition<232)
                     {
-                        yposition+=(4*40);
+                        yposition+=(5*40);
                     }
                     logo_s.setPosition(xposition,yposition);
                 }
@@ -2182,9 +2286,9 @@ event1:
                 else if(Keyboard::isKeyPressed(Keyboard::Down))
                 {
                     yposition+=40;
-                    if(yposition>352)
+                    if(yposition>392)
                     {
-                        yposition-=(4*40);
+                        yposition-=(5*40);
                     }
                     logo_s.setPosition(xposition,yposition);
                 }
@@ -2199,6 +2303,7 @@ event1:
         MainPage.draw(a_s);
         MainPage.draw(logo_s);
         MainPage.draw(w_t);
+        MainPage.draw(t7);
         MainPage.draw(t6);
         MainPage.draw(t5);
         MainPage.draw(t4);
