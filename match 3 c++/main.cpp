@@ -21,7 +21,7 @@ string stringsecond1="";
 int secondcounting=0, extra_timer=0;
 int minutecounting=0;
 
-int pointx=0, pointy=0, moves1=20, moves2=20, h_points, flag=0;
+int pointx=0, pointy=0, moves1=20, moves2=20, h_points=0, flag=0;
 int tile=45; //tile size
 Vector2i offset(36,18);
 
@@ -107,7 +107,7 @@ void move_ending_page()
 }
 
 
-void Level4_page(int flag, int h_points)
+void Level4_page(int flag)
 {
 level_event1:
     Music music4;
@@ -553,6 +553,17 @@ game_event1:
                             {
                                 if(pointy>7000)
                                 {
+                                    ofstream writescore("highscore.txt");
+                                    if(writescore.is_open())
+                                    {
+                                        if(pointy>h_points)
+                                        {
+                                            h_points=pointy;
+                                        }
+                                        writescore<<h_points;
+                                    }
+                                    writescore.close();
+
                                     Texture pass_bg;
                                     pass_bg.loadFromFile("image/bg_night.jpg");
 
@@ -581,10 +592,6 @@ game_event1:
                                         Event pass_event;
                                         while(level_4.pollEvent(pass_event))
                                         {
-                                            if(pointy>h_points)
-                                            {
-                                                h_points=pointy;
-                                            }
                                             if(pass_event.type==Event::KeyPressed)
                                             {
 
@@ -610,10 +617,17 @@ game_event1:
                                 }
                                 else
                                 {
-                                    if(pointy>h_points)
+                                    ofstream writescore("highscore.txt");
+                                    if(writescore.is_open())
                                     {
-                                        h_points=pointy;
+                                        if(pointy>h_points)
+                                        {
+                                            h_points=pointy;
+                                        }
+                                        writescore<<h_points;
                                     }
+                                    writescore.close();
+
                                     level_4.close();
                                     move_ending_page();
                                 }
@@ -715,7 +729,7 @@ game_event1:
 }
 
 
-void Level3_page(int flag, int h_points)
+void Level3_page(int flag)
 {
 level_event1:
     Music music3;
@@ -724,7 +738,6 @@ level_event1:
     RenderWindow level_3(VideoMode(760,600), "Level - 3");
 
     int posy;
-    h_points=0;
 
     Font best31, best32,best33,best34,best35;
     best31.loadFromFile("fonts/comic.ttf");
@@ -1163,6 +1176,17 @@ game_event1:
                             {
                                 if(pointx>6000)
                                 {
+                                    ofstream writescore("highscore.txt");
+                                    if(writescore.is_open())
+                                    {
+                                        if(pointy>h_points)
+                                        {
+                                            h_points=pointy;
+                                        }
+                                        writescore<<h_points;
+                                    }
+                                    writescore.close();
+
                                     Texture pass_bg, pass_bg2;
                                     pass_bg.loadFromFile("image/bg_night.jpg");
 
@@ -1185,10 +1209,6 @@ game_event1:
                                         Event pass_event;
                                         while(level_3.pollEvent(pass_event))
                                         {
-                                            if(pointx>h_points)
-                                            {
-                                                h_points=pointx;
-                                            }
                                             if(pass_event.type==Event::KeyPressed)
                                             {
 
@@ -1196,7 +1216,7 @@ game_event1:
                                                 {
                                                     music3.stop();
                                                     level_3.close();
-                                                    Level4_page(flag, h_points);
+                                                    Level4_page(flag);
                                                 }
 
                                             }
@@ -1213,10 +1233,17 @@ game_event1:
                                 }
                                 else
                                 {
-                                    if(pointx>h_points)
+                                    ofstream writescore("highscore.txt");
+                                    if(writescore.is_open())
                                     {
-                                        h_points=pointx;
+                                        if(pointy>h_points)
+                                        {
+                                            h_points=pointy;
+                                        }
+                                        writescore<<h_points;
                                     }
+                                    writescore.close();
+
                                     level_3.close();
                                     move_ending_page();
                                 }
@@ -1739,6 +1766,17 @@ game_event1:
                                     {
                                         if(moves2>0)
                                         {
+                                            ofstream writescore("highscore.txt");
+                                            if(writescore.is_open())
+                                            {
+                                                if(pointy>h_points)
+                                                {
+                                                    h_points=pointy;
+                                                }
+                                                writescore<<h_points;
+                                            }
+                                            writescore.close();
+
                                             Texture pass_bg,pass_bg2;
                                             pass_bg.loadFromFile("image/bg_night.jpg");
 
@@ -1761,10 +1799,6 @@ game_event1:
                                                 Event pass_event;
                                                 while(level_2.pollEvent(pass_event))
                                                 {
-                                                    if(pointy>h_points)
-                                                    {
-                                                        h_points=pointy;
-                                                    }
                                                     if(pass_event.type== Event::KeyPressed)
                                                     {
 
@@ -1772,7 +1806,7 @@ game_event1:
                                                         {
                                                             music2.stop();
                                                             level_2.close();
-                                                            Level3_page(flag, h_points);
+                                                            Level3_page(flag);
                                                         }
 
                                                     }
@@ -1876,10 +1910,17 @@ game_event1:
                         {
                             if(pointy<5000)
                             {
-                                if(pointy>h_points)
+                                ofstream writescore("highscore.txt");
+                                if(writescore.is_open())
                                 {
-                                    h_points=pointy;
+                                    if(pointy>h_points)
+                                    {
+                                        h_points=pointy;
+                                    }
+                                    writescore<<h_points;
                                 }
+                                writescore.close();
+
                                 level_2.close();
                                 move_ending_page();
                             }
@@ -2322,6 +2363,16 @@ game_event1:
                                         {
                                             /*  PASSING SHOW PART  */
 
+                                            ofstream writescore("highscore.txt");
+                                            if(writescore.is_open())
+                                            {
+                                                if(pointy>h_points)
+                                                {
+                                                    h_points=pointy;
+                                                }
+                                                writescore<<h_points;
+                                            }
+                                            writescore.close();
 
                                             Texture pass_bg;
                                             pass_bg.loadFromFile("image/bg_night.jpg");
@@ -2345,10 +2396,6 @@ game_event1:
                                                 Event pass_event;
                                                 while(level_1.pollEvent(pass_event))
                                                 {
-                                                    if(pointx>h_points)
-                                                    {
-                                                        h_points=pointx;
-                                                    }
                                                     if(pass_event.type== Event::KeyPressed)
                                                     {
 
@@ -2462,10 +2509,17 @@ game_event1:
                         {
                             if(pointx<5000)
                             {
-                                if(pointx>h_points)
+                                ofstream writescore("highscore.txt");
+                                if(writescore.is_open())
                                 {
-                                    h_points=pointx;
+                                    if(pointy>h_points)
+                                    {
+                                        h_points=pointy;
+                                    }
+                                    writescore<<h_points;
                                 }
+                                writescore.close();
+
                                 level_1.close();
                                 move_ending_page();
                             }
@@ -2497,6 +2551,17 @@ game_event1:
 
 int main()
 {
+    std::ifstream takeread;
+    takeread.open("highscore.txt");
+    if(takeread.is_open())
+    {
+        while(!takeread.eof())
+        {
+            takeread>>h_points;
+        }
+    }
+    takeread.close();
+
 event1:
     Music music;
     music.openFromFile("music/funky.ogg");
@@ -2765,9 +2830,7 @@ event2:
                     {
                         /*High score page part*/
 
-                        int score=h_points;
-
-                        stringpoint=""+to_string(score);
+                        stringpoint=""+to_string(h_points);
                         Text tpoint(stringpoint, font5, 45);
                         tpoint.setFillColor(sf::Color::White);
                         tpoint.setPosition(260,280);
@@ -2871,7 +2934,7 @@ event2:
                                     {
                                         music.stop();
                                         Level1_page(flag);
-                                        goto event2;
+                                        goto event1;
                                     }
 
                                 }
