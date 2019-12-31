@@ -12,6 +12,7 @@ using namespace std;
 
 string stringscore="", stringscore2="";
 string stringmove="", stringmove2="";
+string stringpoint="";
 
 //time display
 string stringminute1="";
@@ -20,7 +21,7 @@ string stringsecond1="";
 int secondcounting=0, extra_timer=0;
 int minutecounting=0;
 
-int pointx=0, pointy=0, moves1=20, moves2=20, flag=0;
+int pointx=0, pointy=0, moves1=20, moves2=20, h_points, flag=0;
 int tile=45; //tile size
 Vector2i offset(36,18);
 
@@ -106,7 +107,7 @@ void move_ending_page()
 }
 
 
-void Level4_page(int flag)
+void Level4_page(int flag, int h_points)
 {
 level_event1:
     Music music4;
@@ -204,18 +205,21 @@ game_event2:
                     Text game4("more than $ 7000 $", fontg, 15);
                     Text game5("Within 2 minutes...", fontg, 15);
                     Text game6("Press ESC to pause", best43, 25);
+                    Text game7("# Level - 4", best41, 45);
                     game1.setPosition(420,20);
                     game2.setPosition(420,140);
                     game3.setPosition(420,260);
                     game4.setPosition(420,310);
                     game5.setPosition(420,330);
                     game6.setPosition(60,510);
+                    game7.setPosition(5,440);
                     game1.setFillColor(sf::Color::Yellow);
                     game2.setFillColor(sf::Color::Yellow);
                     game3.setFillColor(sf::Color::Yellow);
                     game4.setFillColor(Color::Red);
                     game5.setFillColor(Color::Red);
                     game6.setFillColor(Color::Yellow);
+                    game7.setFillColor(Color::Yellow);
 
 
                     //game code
@@ -547,7 +551,7 @@ game_event1:
                             minutecounting++;
                             if(minutecounting==2)
                             {
-                                if(pointx>7000)
+                                if(pointy>7000)
                                 {
                                     Texture pass_bg;
                                     pass_bg.loadFromFile("image/bg_night.jpg");
@@ -555,10 +559,10 @@ game_event1:
                                     Sprite bg41(pass_bg);
 
                                     Text passT41("CONGRATULATIONS", best44, 45);
-                                    Text passT42("Thank you for Playing our Game. Hope you", best43, 30);
-                                    Text passT43("enjoyed this. We will try to improve our", best43, 30);
-                                    Text passT44("game according all your needs. Thank you", best43, 30);
-                                    Text passT45("Again...", best43, 30);
+                                    Text passT42("Thank you for Playing our Game. Hope you", best43, 25);
+                                    Text passT43("enjoyed this. We will try to improve our", best43, 25);
+                                    Text passT44("game according all your needs. Thank you", best43, 25);
+                                    Text passT45("Again...", best43, 25);
 
                                     passT41.setFillColor(Color::White);
                                     passT42.setFillColor(Color::White);
@@ -567,16 +571,20 @@ game_event1:
                                     passT45.setFillColor(Color::White);
 
                                     passT41.setPosition(160,150);
-                                    passT42.setPosition(100,240);
-                                    passT43.setPosition(100,300);
-                                    passT44.setPosition(100,360);
-                                    passT45.setPosition(100,420);
+                                    passT42.setPosition(85,240);
+                                    passT43.setPosition(85,300);
+                                    passT44.setPosition(85,360);
+                                    passT45.setPosition(85,420);
 
                                     while(level_4.isOpen())
                                     {
                                         Event pass_event;
                                         while(level_4.pollEvent(pass_event))
                                         {
+                                            if(pointy>h_points)
+                                            {
+                                                h_points=pointy;
+                                            }
                                             if(pass_event.type==Event::KeyPressed)
                                             {
 
@@ -602,6 +610,10 @@ game_event1:
                                 }
                                 else
                                 {
+                                    if(pointy>h_points)
+                                    {
+                                        h_points=pointy;
+                                    }
                                     level_4.close();
                                     move_ending_page();
                                 }
@@ -670,6 +682,7 @@ game_event1:
                         level_4.draw(game4);
                         level_4.draw(game5);
                         level_4.draw(game6);
+                        level_4.draw(game7);
 
                         level_4.draw(point_bg);
                         level_4.draw(point_bg2);
@@ -702,7 +715,7 @@ game_event1:
 }
 
 
-void Level3_page(int flag)
+void Level3_page(int flag, int h_points)
 {
 level_event1:
     Music music3;
@@ -711,6 +724,7 @@ level_event1:
     RenderWindow level_3(VideoMode(760,600), "Level - 3");
 
     int posy;
+    h_points=0;
 
     Font best31, best32,best33,best34,best35;
     best31.loadFromFile("fonts/comic.ttf");
@@ -801,18 +815,21 @@ game_event2:
                     Text game4("more than $ 6000 $", fontg, 15);
                     Text game5("Within 2 minutes...", fontg, 15);
                     Text game6("Press ESC to pause", best33, 25);
+                    Text game7("# Level - 3", best31, 45);
                     game1.setPosition(420,20);
                     game2.setPosition(420,140);
                     game3.setPosition(420,260);
                     game4.setPosition(420,310);
                     game5.setPosition(420,330);
                     game6.setPosition(60,510);
+                    game7.setPosition(5,440);
                     game1.setFillColor(sf::Color::Yellow);
                     game2.setFillColor(sf::Color::Yellow);
                     game3.setFillColor(sf::Color::Yellow);
                     game4.setFillColor(Color::Red);
                     game5.setFillColor(Color::Red);
                     game6.setFillColor(Color::Yellow);
+                    game7.setFillColor(Color::Yellow);
 
 
                     //game code
@@ -1148,18 +1165,16 @@ game_event1:
                                 {
                                     Texture pass_bg, pass_bg2;
                                     pass_bg.loadFromFile("image/bg_night.jpg");
-                                    pass_bg2.loadFromFile("image/firecrackers.png");
 
-                                    Sprite bg31(pass_bg), bg32(pass_bg2);
-                                    bg32.setPosition(80,50);
+                                    Sprite bg31(pass_bg);
 
                                     Text passT31("CONGRATULATIONS", best34, 45);
                                     Text passT32("You PASSED this Level", best35, 35);
                                     Text passT33("Press ENTER for Next Level", best33, 30);
 
-                                    passT31.setFillColor(Color::Red);
-                                    passT32.setFillColor(Color::Red);
-                                    passT33.setFillColor(Color::Red);
+                                    passT31.setFillColor(Color::White);
+                                    passT32.setFillColor(Color::White);
+                                    passT33.setFillColor(Color::White);
 
                                     passT31.setPosition(160,150);
                                     passT32.setPosition(180,350);
@@ -1170,6 +1185,10 @@ game_event1:
                                         Event pass_event;
                                         while(level_3.pollEvent(pass_event))
                                         {
+                                            if(pointx>h_points)
+                                            {
+                                                h_points=pointx;
+                                            }
                                             if(pass_event.type==Event::KeyPressed)
                                             {
 
@@ -1177,14 +1196,13 @@ game_event1:
                                                 {
                                                     music3.stop();
                                                     level_3.close();
-                                                    Level4_page(flag);
+                                                    Level4_page(flag, h_points);
                                                 }
 
                                             }
                                         }
                                         level_3.clear();
                                         level_3.draw(bg31);
-                                        level_3.draw(bg32);
 
                                         level_3.draw(passT31);
                                         level_3.draw(passT32);
@@ -1195,6 +1213,10 @@ game_event1:
                                 }
                                 else
                                 {
+                                    if(pointx>h_points)
+                                    {
+                                        h_points=pointx;
+                                    }
                                     level_3.close();
                                     move_ending_page();
                                 }
@@ -1263,6 +1285,7 @@ game_event1:
                         level_3.draw(game4);
                         level_3.draw(game5);
                         level_3.draw(game6);
+                        level_3.draw(game7);
 
                         level_3.draw(point_bg);
                         level_3.draw(point_bg2);
@@ -1363,19 +1386,21 @@ game_event2:
                     moves2=20;
                     posy=150;
 
-                    Texture t1, t2, t3, t4, t5, t6;
+                    Texture t1, t2, t3, t4, t5, t6, t7;
                     t1.loadFromFile("image/bg_night.jpg");
                     t2.loadFromFile("image/gems.png");
                     t3.loadFromFile("image/button2.png");
                     t4.loadFromFile("image/button2.png");
                     t5.loadFromFile("image/button2.png");
                     t6.loadFromFile("image/Design-PNG-Photo.png");
+                    t7.loadFromFile("image/png.png");
 
-                    Sprite background(t1), gems(t2),point_bg(t3), point_bg2(t4), point_bg3(t5), point_bg4(t6);
+                    Sprite background(t1), gems(t2),point_bg(t3), point_bg2(t4), point_bg3(t5), point_bg4(t6), escape(t7);
                     point_bg.setPosition(420,70);
                     point_bg2.setPosition(420,190);
                     point_bg3.setPosition(420,310);
                     point_bg4.setPosition(590,420);
+                    escape.setPosition(5,510);
 
                     //game page writings
 
@@ -1385,14 +1410,20 @@ game_event2:
                     Text game2("Moves :", fontg, 35);
                     Text game3("Target ::", fontg, 35);
                     Text game4("$ 5000 $", fontg, 25);
+                    Text game5("Press ESC to Pause", best23, 25);
+                    Text game6("# Level - 2", best21, 45);
                     game1.setPosition(420,20);
                     game2.setPosition(420,140);
                     game3.setPosition(420,260);
                     game4.setPosition(425,310);
+                    game5.setPosition(60,510);
+                    game6.setPosition(5,440);
                     game1.setFillColor(sf::Color::Yellow);
                     game2.setFillColor(sf::Color::Yellow);
                     game3.setFillColor(sf::Color::Yellow);
                     game4.setFillColor(sf::Color::Red);
+                    game5.setFillColor(sf::Color::Yellow);
+                    game6.setFillColor(sf::Color::Yellow);
 
 
                     /*GAME  CODE*/
@@ -1710,10 +1741,8 @@ game_event1:
                                         {
                                             Texture pass_bg,pass_bg2;
                                             pass_bg.loadFromFile("image/bg_night.jpg");
-                                            pass_bg2.loadFromFile("image/firecrackers.png");
 
-                                            Sprite bg21_pass(pass_bg), bg22_pass(pass_bg2);
-                                            bg22_pass.setPosition(60,30);
+                                            Sprite bg21_pass(pass_bg);
 
                                             Text passT21("CONGRATULATIONS..!!", best24, 45);
                                             Text passT22("You PASSED this Level", best25, 35);
@@ -1732,6 +1761,10 @@ game_event1:
                                                 Event pass_event;
                                                 while(level_2.pollEvent(pass_event))
                                                 {
+                                                    if(pointy>h_points)
+                                                    {
+                                                        h_points=pointy;
+                                                    }
                                                     if(pass_event.type== Event::KeyPressed)
                                                     {
 
@@ -1739,7 +1772,7 @@ game_event1:
                                                         {
                                                             music2.stop();
                                                             level_2.close();
-                                                            Level3_page(flag);
+                                                            Level3_page(flag, h_points);
                                                         }
 
                                                     }
@@ -1747,7 +1780,6 @@ game_event1:
 
                                                 level_2.clear();
                                                 level_2.draw(bg21_pass);
-                                                level_2.draw(bg22_pass);
 
                                                 level_2.draw(passT21);
                                                 level_2.draw(passT22);
@@ -1826,6 +1858,9 @@ game_event1:
                         level_2.draw(game1);
                         level_2.draw(game2);
                         level_2.draw(game3);
+                        level_2.draw(escape);
+                        level_2.draw(game5);
+                        level_2.draw(game6);
 
                         level_2.draw(point_bg);
                         level_2.draw(point_bg2);
@@ -1841,6 +1876,10 @@ game_event1:
                         {
                             if(pointy<5000)
                             {
+                                if(pointy>h_points)
+                                {
+                                    h_points=pointy;
+                                }
                                 level_2.close();
                                 move_ending_page();
                             }
@@ -1961,16 +2000,19 @@ game_event2:
                     Text game3("Target ::", fontg, 35);
                     Text game4("$ 5000 $", fontg, 25);
                     Text game5("Press ESC to Pause", best13, 25);
+                    Text game6("# Level - 1", best11, 45);
                     game1.setPosition(420,20);
                     game2.setPosition(420,140);
                     game3.setPosition(420,260);
                     game4.setPosition(425,310);
                     game5.setPosition(60,510);
+                    game6.setPosition(5,440);
                     game1.setFillColor(sf::Color::Yellow);
                     game2.setFillColor(sf::Color::Yellow);
                     game3.setFillColor(sf::Color::Yellow);
                     game4.setFillColor(sf::Color::Red);
                     game5.setFillColor(sf::Color::Yellow);
+                    game6.setFillColor(sf::Color::Yellow);
 
 
                     //game code
@@ -2281,20 +2323,18 @@ game_event1:
                                             /*  PASSING SHOW PART  */
 
 
-                                            Texture pass_bg,pass_bg2;
+                                            Texture pass_bg;
                                             pass_bg.loadFromFile("image/bg_night.jpg");
-                                            pass_bg2.loadFromFile("image/firecrackers.png");
 
-                                            Sprite bg11_pass(pass_bg), bg12_pass(pass_bg2);
-                                            bg12_pass.setPosition(60,30);
+                                            Sprite bg11_pass(pass_bg);
 
                                             Text passT1("CONGRATULATIONS..!!", best14, 45);
                                             Text passT2("You PASSED this Level", best15, 35);
                                             Text passT3("Press ENTER for Next Level", best13, 30);
 
-                                            passT1.setFillColor(sf::Color::Black);
-                                            passT2.setFillColor(sf::Color::Black);
-                                            passT3.setFillColor(sf::Color::Black);
+                                            passT1.setFillColor(sf::Color::Yellow);
+                                            passT2.setFillColor(sf::Color::Yellow);
+                                            passT3.setFillColor(sf::Color::Yellow);
 
                                             passT1.setPosition(160,150);
                                             passT2.setPosition(180,350);
@@ -2305,6 +2345,10 @@ game_event1:
                                                 Event pass_event;
                                                 while(level_1.pollEvent(pass_event))
                                                 {
+                                                    if(pointx>h_points)
+                                                    {
+                                                        h_points=pointx;
+                                                    }
                                                     if(pass_event.type== Event::KeyPressed)
                                                     {
 
@@ -2320,7 +2364,6 @@ game_event1:
 
                                                 level_1.clear();
                                                 level_1.draw(bg11_pass);
-                                                level_1.draw(bg12_pass);
 
                                                 level_1.draw(passT1);
                                                 level_1.draw(passT2);
@@ -2404,6 +2447,7 @@ game_event1:
                         level_1.draw(point_bg3);
                         level_1.draw(game4);
                         level_1.draw(game5);
+                        level_1.draw(game6);
 
                         level_1.draw(point_bg);
                         level_1.draw(point_bg2);
@@ -2418,6 +2462,10 @@ game_event1:
                         {
                             if(pointx<5000)
                             {
+                                if(pointx>h_points)
+                                {
+                                    h_points=pointx;
+                                }
                                 level_1.close();
                                 move_ending_page();
                             }
@@ -2515,6 +2563,7 @@ event1:
     logo_s.setPosition(xposition,yposition);
 
     music.play();
+
 event2:
     while(MainPage.isOpen())
     {
@@ -2533,6 +2582,8 @@ event2:
                     }
                     else if(yposition==352)
                     {
+                        /*Sound page part*/
+
                         poss=195;
 
                         Text a1("Sound ???", font1, 40);
@@ -2664,18 +2715,18 @@ event2:
                         t6.setPosition(45,370);
                         t7.setPosition(45,420);
 
-                        t1.setFillColor(Color::Black);
-                        t2.setFillColor(Color::Black);
-                        t3.setFillColor(Color::Black);
-                        t4.setFillColor(Color::Black);
-                        t5.setFillColor(Color::Black);
-                        t6.setFillColor(Color::Black);
-                        t7.setFillColor(Color::Black);
-                        t8.setFillColor(Color::Black);
+                        t1.setFillColor(Color::White);
+                        t2.setFillColor(Color::White);
+                        t3.setFillColor(Color::White);
+                        t4.setFillColor(Color::White);
+                        t5.setFillColor(Color::White);
+                        t6.setFillColor(Color::White);
+                        t7.setFillColor(Color::White);
+                        t8.setFillColor(Color::White);
 
                         Texture a1,a2;
 
-                        a1.loadFromFile("image/score_background.jpg");
+                        a1.loadFromFile("image/sbg_night.jpg");
                         a2.loadFromFile("image/dynamic_blue_left.png");
 
                         Sprite BackGround(a1), Exit_arrow(a2);
@@ -2713,6 +2764,13 @@ event2:
                     else if(yposition==272)
                     {
                         /*High score page part*/
+
+                        int score=h_points;
+
+                        stringpoint=""+to_string(score);
+                        Text tpoint(stringpoint, font5, 45);
+                        tpoint.setFillColor(sf::Color::White);
+                        tpoint.setPosition(260,280);
 
                         Text T1("Your", font4, 45);
                         Text T2("HIGH SCORE :", font6, 65);
@@ -2760,6 +2818,7 @@ event2:
 
                             MainPage.draw(scoreback);
                             MainPage.draw(scoreboard);
+                            MainPage.draw(tpoint);
                             MainPage.draw(back_arrow);
                             MainPage.draw(T3);
                             MainPage.draw(T1);
