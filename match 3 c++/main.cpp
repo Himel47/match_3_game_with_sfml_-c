@@ -851,7 +851,7 @@ game_event2:
                     {
                         for(int j=1; j<=8; j++)
                         {
-                            grid[i][j].kind=rand()%6;
+                            grid[i][j].kind=rand()%5;
                             grid[i][j].col=j;
                             grid[i][j].row=i;
                             grid[i][j].x=j*tile;
@@ -1459,7 +1459,7 @@ game_event2:
                     {
                         for(int j=1; j<=8; j++)
                         {
-                            grid[i][j].kind=rand()%7;
+                            grid[i][j].kind=rand()%6;
                             grid[i][j].col=j;
                             grid[i][j].row=i;
                             grid[i][j].x=j*tile;
@@ -2062,7 +2062,7 @@ game_event2:
                     {
                         for(int j=1; j<=8; j++)
                         {
-                            grid[i][j].kind=rand()%6;         //randomly gems permutation
+                            grid[i][j].kind=rand()%5;         //randomly gems permutation
                             grid[i][j].col=j;
                             grid[i][j].row=i;
                             grid[i][j].x=j*tile;
@@ -2565,6 +2565,7 @@ int main()
 event1:
     Music music;
     music.openFromFile("music/funky.ogg");
+    music.setLoop(true);
     int xposition, yposition, poss;
 
     Font font1, font2, font3, font4, font5, font6;
