@@ -107,7 +107,7 @@ void move_ending_page()
 }
 
 
-void Level4_page(int flag)
+void Level4_page(int flag, int h_points)
 {
 level_event1:
     Music music4;
@@ -143,19 +143,20 @@ level_event1:
     Sprite Back4(bg4), exitarrow(arrow_exit);
     exitarrow.setPosition(-3,0);
 
+    if(flag==0)
+    {
+        music4.play();
+    }
+    else if(flag==1)
+    {
+        music4.stop();
+    }
+
     while(level_4.isOpen())
     {
         Event starting4;
         while(level_4.pollEvent(starting4))
         {
-            if(flag==0)
-            {
-                music4.play();
-            }
-            else if(flag==1)
-            {
-                music4.stop();
-            }
             if(starting4.type== Event::KeyPressed)
             {
 
@@ -729,7 +730,7 @@ game_event1:
 }
 
 
-void Level3_page(int flag)
+void Level3_page(int flag, int h_points)
 {
 level_event1:
     Music music3;
@@ -766,19 +767,20 @@ level_event1:
     Sprite Back3(bg3), exitarrow(arrow_exit);
     exitarrow.setPosition(-3, 0);
 
+    if(flag==0)
+    {
+        music3.play();
+    }
+    else if(flag==1)
+    {
+        music3.stop();
+    }
+
     while(level_3.isOpen())
     {
         Event starting3;
         while(level_3.pollEvent(starting3))
         {
-            if(flag==0)
-            {
-                music3.play();
-            }
-            else if(flag==1)
-            {
-                music3.stop();
-            }
             if(starting3.type== Event::KeyPressed)
             {
 
@@ -1216,7 +1218,7 @@ game_event1:
                                                 {
                                                     music3.stop();
                                                     level_3.close();
-                                                    Level4_page(flag);
+                                                    Level4_page(flag,h_points);
                                                 }
 
                                             }
@@ -1346,7 +1348,7 @@ game_event1:
 }
 
 
-void Level2_page(int flag)
+void Level2_page(int flag, int h_points)
 {
 level_event2:
     Music music2;
@@ -1382,19 +1384,20 @@ level_event2:
     Sprite Back2(bg2), arrow_2(arrowexit);
     arrow_2.setPosition(-3,0);
 
+    if(flag==0)
+    {
+        music2.play();
+    }
+    else if(flag==1)
+    {
+        music2.stop();
+    }
+
     while(level_2.isOpen())
     {
         Event starting2;
         while(level_2.pollEvent(starting2))
         {
-            if(flag==0)
-            {
-                music2.play();
-            }
-            else if(flag==1)
-            {
-                music2.stop();
-            }
             if(starting2.type== Event::KeyPressed)
             {
 
@@ -1806,7 +1809,7 @@ game_event1:
                                                         {
                                                             music2.stop();
                                                             level_2.close();
-                                                            Level3_page(flag);
+                                                            Level3_page(flag,h_points);
                                                         }
 
                                                     }
@@ -1948,7 +1951,7 @@ game_event1:
 }
 
 
-void Level1_page(int flag)
+void Level1_page(int flag, int h_points)
 {
 level_event1:
     Music music1;
@@ -1985,19 +1988,20 @@ level_event1:
 
     arrow_1.setPosition(-3,0);
 
+    if(flag==0)
+    {
+        music1.play();
+    }
+    else if(flag==1)
+    {
+        music1.stop();
+    }
+
     while(level_1.isOpen())
     {
         Event starting1;
         while(level_1.pollEvent(starting1))
         {
-            if(flag==0)
-            {
-                music1.play();
-            }
-            else if(flag==1)
-            {
-                music1.stop();
-            }
             if(starting1.type== Event::KeyPressed)
             {
 
@@ -2403,7 +2407,7 @@ game_event1:
                                                         {
                                                             music1.stop();
                                                             level_1.close();
-                                                            Level2_page(flag);
+                                                            Level2_page(flag,h_points);
                                                         }
 
                                                     }
@@ -2934,7 +2938,7 @@ event2:
                                     else if(Keyboard::isKeyPressed(Keyboard::Enter))
                                     {
                                         music.stop();
-                                        Level1_page(flag);
+                                        Level1_page(flag,h_points);
                                         goto event1;
                                     }
 
