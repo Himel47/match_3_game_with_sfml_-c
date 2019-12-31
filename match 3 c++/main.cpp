@@ -107,7 +107,7 @@ void move_ending_page()
 }
 
 
-void Level4_page(int flag, int h_points)
+void Level4_page(int flag)
 {
 level_event1:
     Music music4;
@@ -229,7 +229,7 @@ game_event2:
                     {
                         for(int j=1; j<=8; j++)
                         {
-                            grid[i][j].kind=rand()%7;
+                            grid[i][j].kind=rand()%6;
                             grid[i][j].col=j;
                             grid[i][j].row=i;
                             grid[i][j].x=j*tile;
@@ -665,7 +665,7 @@ game_event1:
                                 {
                                     if(grid[i][j].match)
                                     {
-                                        grid[i][j].kind=rand()%7;
+                                        grid[i][j].kind=rand()%6;
                                         grid[i][j].y= -tile*n++;
                                         grid[i][j].match=0;
                                         grid[i][j].deleteanimationstyle=255;
@@ -730,7 +730,7 @@ game_event1:
 }
 
 
-void Level3_page(int flag, int h_points)
+void Level3_page(int flag)
 {
 level_event1:
     Music music3;
@@ -1218,7 +1218,7 @@ game_event1:
                                                 {
                                                     music3.stop();
                                                     level_3.close();
-                                                    Level4_page(flag,h_points);
+                                                    Level4_page(flag);
                                                 }
 
                                             }
@@ -1282,7 +1282,7 @@ game_event1:
                                 {
                                     if(grid[i][j].match)
                                     {
-                                        grid[i][j].kind=rand()%6;
+                                        grid[i][j].kind=rand()%5;
                                         grid[i][j].y= -tile*n++;
                                         grid[i][j].match=0;
                                         grid[i][j].deleteanimationstyle=255;
@@ -1348,7 +1348,7 @@ game_event1:
 }
 
 
-void Level2_page(int flag, int h_points)
+void Level2_page(int flag)
 {
 level_event2:
     Music music2;
@@ -1809,7 +1809,7 @@ game_event1:
                                                         {
                                                             music2.stop();
                                                             level_2.close();
-                                                            Level3_page(flag,h_points);
+                                                            Level3_page(flag);
                                                         }
 
                                                     }
@@ -1867,7 +1867,7 @@ game_event1:
                                 {
                                     if(grid[i][j].match)
                                     {
-                                        grid[i][j].kind=rand()%7;
+                                        grid[i][j].kind=rand()%6;
                                         grid[i][j].y= -tile*n++;
                                         grid[i][j].match=0;
                                         grid[i][j].deleteanimationstyle=255;
@@ -1951,7 +1951,7 @@ game_event1:
 }
 
 
-void Level1_page(int flag, int h_points)
+void Level1_page(int flag)
 {
 level_event1:
     Music music1;
@@ -2407,7 +2407,7 @@ game_event1:
                                                         {
                                                             music1.stop();
                                                             level_1.close();
-                                                            Level2_page(flag,h_points);
+                                                            Level2_page(flag);
                                                         }
 
                                                     }
@@ -2465,7 +2465,7 @@ game_event1:
                                 {
                                     if(grid[i][j].match)
                                     {
-                                        grid[i][j].kind=rand()%6;
+                                        grid[i][j].kind=rand()%5;
                                         grid[i][j].y= -tile*n++;
                                         grid[i][j].match=0;
                                         grid[i][j].deleteanimationstyle=255;
@@ -2938,7 +2938,7 @@ event2:
                                     else if(Keyboard::isKeyPressed(Keyboard::Enter))
                                     {
                                         music.stop();
-                                        Level1_page(flag,h_points);
+                                        Level1_page(flag);
                                         goto event1;
                                     }
 
