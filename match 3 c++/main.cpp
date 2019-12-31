@@ -202,7 +202,7 @@ game_event2:
                     Text game1("Score :", fontg, 35);
                     Text game2("Time :", fontg, 35);
                     Text game3("Target ::", fontg, 35);
-                    Text game4("more than $ 7000 $", fontg, 15);
+                    Text game4("more than $ 6500 $", fontg, 15);
                     Text game5("Within 2 minutes...", fontg, 15);
                     Text game6("Press ESC to pause", best43, 25);
                     Text game7("# Level - 4", best41, 45);
@@ -551,7 +551,7 @@ game_event1:
                             minutecounting++;
                             if(minutecounting==2)
                             {
-                                if(pointy>7000)
+                                if(pointy>6500)
                                 {
                                     ofstream writescore("highscore.txt");
                                     if(writescore.is_open())
