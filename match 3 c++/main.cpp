@@ -2565,6 +2565,7 @@ int main()
 event1:
     Music music;
     music.openFromFile("music/funky.ogg");
+    music.setLoop(true);
     int xposition, yposition, poss;
 
     Font font1, font2, font3, font4, font5, font6;
