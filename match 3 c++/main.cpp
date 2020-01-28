@@ -21,7 +21,7 @@ string stringsecond1="";
 int secondcounting=0, extra_timer=0;
 int minutecounting=0;
 
-int pointx=0, pointy=0, moves1=20, moves2=20, h_points=0, flag=0;
+int pointx=0, pointy=0, moves1=20, moves2=20, h_points, flag=0;
 int tile=45; //tile size
 Vector2i offset(36,18);
 
